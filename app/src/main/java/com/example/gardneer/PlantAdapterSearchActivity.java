@@ -61,7 +61,7 @@ public class PlantAdapterSearchActivity extends RecyclerView.Adapter<PlantAdapte
         itemHolder.linearLayout.setOnClickListener(view -> {
             Intent intent = new Intent(context,DetailActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-            intent.putExtra("id", plant.getName());
+            intent.putExtra("id", plant.getId());
             context.startActivity(intent);
         });
 

@@ -73,12 +73,8 @@
         android:id="@+id/FilterSearchActivity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/img_filter"
-        android:marginStart="5dp"
-        android:marginLeft="5dp"
-        android:marginTop="5dp"
-        android:marginEnd="5dp"
-        android:weight="1"/>
+        android:layout_margin="7dp"
+        app:srcCompat="@drawable/img_filter" />
 
     </LinearLayout>
 

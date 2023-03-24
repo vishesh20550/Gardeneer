@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/cold_season"
+        android:title="Cold Season" />
+    <item
+        android:id="@+id/warm_Season"
+        android:title="Warm Season" />
+</menu>
