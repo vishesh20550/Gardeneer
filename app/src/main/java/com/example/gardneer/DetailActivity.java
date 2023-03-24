@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 public class DetailActivity extends AppCompatActivity
 {
-    Plant selectedShape;
+    PlantSearchActivity selectedShape;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -28,9 +28,9 @@ public class DetailActivity extends AppCompatActivity
         selectedShape = getParsedShape(parsedStringID);
     }
 
-    private Plant getParsedShape(String parsedID)
+    private PlantSearchActivity getParsedShape(String parsedID)
     {
-        for (Plant shape : SearchActivity.shapeList)
+        for (PlantSearchActivity shape : SearchActivity.shapeList)
         {
             if(shape.getId().equals(parsedID))
                 return shape;
@@ -40,8 +40,8 @@ public class DetailActivity extends AppCompatActivity
 
     private void setValues()
     {
-        TextView tv = (TextView) findViewById(R.id.shapeName);
-        ImageView iv = (ImageView) findViewById(R.id.shapeImage);
+        TextView tv = (TextView) findViewById(R.id.plantName);
+        ImageView iv = (ImageView) findViewById(R.id.plantImage);
 
         tv.setText(selectedShape.getId() + " - " + selectedShape.getName());
         iv.setImageResource(selectedShape.getImage());
