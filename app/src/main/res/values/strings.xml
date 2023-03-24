@@ -1,4 +1,13 @@
 <resources>
     <string name="app_name">Gardneer</string>
     <string name="menu_hamburger">Menu Hamburger</string>
+    <string name="add_plant">Add Plant</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="notifications">Notifications</string>
+    <string name="logo">Logo</string>
+    <string name="gardneer">GARDNEER</string>
+    <string name="fertilizer">Fertilizer</string>
+    <string name="watering">Watering</string>
+    <string name="weekly_growth_ananlysis">Weekly Growth Ananlysis</string>
 </resources>
