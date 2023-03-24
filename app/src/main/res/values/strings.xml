@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Gardneer</string>
+    <string name="menu_hamburger">Menu Hamburger</string>
 </resources>
