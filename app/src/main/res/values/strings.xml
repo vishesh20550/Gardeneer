@@ -12,11 +12,4 @@
     <string name="weekly_growth_ananlysis">Weekly Growth Ananlysis</string>
     <string name="plants">Plants</string>
     <string name="back">Back</string>
-    <string name="filter_prompt">Select filter</string>
-    <array name="filter_options">
-        <item>All</item>
-        <item>Option 1</item>
-        <item>Option 2</item>
-        <item>Option 3</item>
-    </array>
 </resources>
