@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class SearchActivity extends AppCompatActivity
 {
 
-    public static ArrayList<PlantSearchActivity> shapeList = new ArrayList<PlantSearchActivity>();
+    public static ArrayList<PlantSearchActivity> shapeList;
 
     private RecyclerView listView;
 
@@ -151,6 +151,9 @@ public class SearchActivity extends AppCompatActivity
                     case R.id.herbs_item:
                         // Handle sub-menu item two click
                         return true;
+                    case R.id.houseplant_item:
+                        // Handle sub-menu item two click
+                        return true;
                     default:
                         return false;
                 }
@@ -201,6 +204,7 @@ public class SearchActivity extends AppCompatActivity
     }
 
     private void setupData() {
+        shapeList = new ArrayList<PlantSearchActivity>();
         PlantSearchActivity cabbage = new PlantSearchActivity("0", "Cabbage", R.drawable.cabbage_foreground);
         shapeList.add(cabbage);
 

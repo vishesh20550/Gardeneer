@@ -7,8 +7,7 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class DetailActivity extends AppCompatActivity
-{
+public class DetailActivity extends AppCompatActivity {
     PlantSearchActivity selectedShape;
 
     @Override
