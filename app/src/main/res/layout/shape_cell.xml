@@ -8,7 +8,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:id="@+id/shapeName"
+        android:id="@+id/plantName"
         android:gravity="center_vertical"
         android:text="shape name"
         android:textColor="@color/colorPrimaryDark"
@@ -16,7 +16,7 @@
         android:layout_marginLeft="20dp"/>
 
     <ImageView
-        android:id="@+id/shapeImage"
+        android:id="@+id/plantImage"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_alignParentEnd="true"

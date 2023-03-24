@@ -2,39 +2,47 @@ package com.example.gardneer;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
-
 import java.util.List;
+import android.content.Intent;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
-public class PlantAdapter extends ArrayAdapter<Plant>
-{
 
-    public PlantAdapter(Context context, int resource, List<Plant> shapeList)
-    {
-        super(context,resource,shapeList);
+public class PlantAdapter extends RecyclerView.Adapter<ViewHolder>{
+    private Context context;
+
+    private List<Plant> list;
+
+    public PlantAdapter(Context context, List<Plant> list) {
+        this.context = context;
+        this.list = list;
     }
 
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.shape_cell, parent, false));
+    }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent)
-    {
-        Plant shape = getItem(position);
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
+        ViewHolder itemHolder = (ViewHolder) holder;
 
-        if(convertView == null)
-        {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.shape_cell, parent, false);
-        }
-        TextView tv = (TextView) convertView.findViewById(R.id.shapeName);
-        ImageView iv = (ImageView) convertView.findViewById(R.id.shapeImage);
+        final Plant plant = (Plant) list.get(position);
+        itemHolder.textName.setText(plant.getName());
+        itemHolder.imageView.setImageResource(plant.getImage());
 
-        tv.setText(shape.getId() + " - " + shape.getName());
-        iv.setImageResource(shape.getImage());
+        itemHolder.textName.setOnClickListener(view -> {
+            Intent intent = new Intent(context,DetailActivity.class);
+            intent.putExtra("id", plant.getName());
+            context.startActivity(intent);
+        });
+    }
 
-
-        return convertView;
+    @Override
+    public int getItemCount() {
+        return list.size();
     }
 }
+

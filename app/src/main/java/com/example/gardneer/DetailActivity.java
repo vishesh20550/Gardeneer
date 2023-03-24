@@ -40,8 +40,8 @@ public class DetailActivity extends AppCompatActivity
 
     private void setValues()
     {
-        TextView tv = (TextView) findViewById(R.id.shapeName);
-        ImageView iv = (ImageView) findViewById(R.id.shapeImage);
+        TextView tv = (TextView) findViewById(R.id.plantName);
+        ImageView iv = (ImageView) findViewById(R.id.plantImage);
 
         tv.setText(selectedShape.getId() + " - " + selectedShape.getName());
         iv.setImageResource(selectedShape.getImage());
