@@ -2,16 +2,12 @@ package com.example.gardneer;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ListView;
 import android.widget.SearchView;
 
 import java.util.ArrayList;
@@ -19,7 +15,7 @@ import java.util.ArrayList;
 public class SearchActivity extends AppCompatActivity
 {
 
-    public static ArrayList<Plant> shapeList = new ArrayList<Plant>();
+    public static ArrayList<PlantSearchActivity> shapeList = new ArrayList<PlantSearchActivity>();
 
     private RecyclerView listView;
 
@@ -52,9 +48,9 @@ public class SearchActivity extends AppCompatActivity
             public boolean onQueryTextChange(String s)
             {
                 currentSearchText = s;
-                ArrayList<Plant> filteredShapes = new ArrayList<Plant>();
+                ArrayList<PlantSearchActivity> filteredShapes = new ArrayList<PlantSearchActivity>();
 
-                for(Plant shape: shapeList)
+                for(PlantSearchActivity shape: shapeList)
                 {
                     if(shape.getName().toLowerCase().contains(s.toLowerCase()))
                     {
@@ -71,7 +67,7 @@ public class SearchActivity extends AppCompatActivity
                         }
                     }
                 }
-                PlantAdapter adapter = new PlantAdapter(getApplicationContext(), filteredShapes);
+                PlantAdapterSearchActivity adapter = new PlantAdapterSearchActivity(getApplicationContext(), filteredShapes);
                 listView.setAdapter(adapter);
 
                 return false;
@@ -80,36 +76,36 @@ public class SearchActivity extends AppCompatActivity
     }
 
     private void setupData() {
-        Plant cabbage = new Plant("0", "cabbage", R.drawable.cabbage_foreground);
+        PlantSearchActivity cabbage = new PlantSearchActivity("0", "cabbage", R.drawable.cabbage_foreground);
         shapeList.add(cabbage);
 
-        Plant carrot = new Plant("1","carrot", R.drawable.carrot_foreground);
+        PlantSearchActivity carrot = new PlantSearchActivity("1","carrot", R.drawable.carrot_foreground);
         shapeList.add(carrot);
 
-        Plant corn = new Plant("2","corn", R.drawable.corn_foreground);
+        PlantSearchActivity corn = new PlantSearchActivity("2","corn", R.drawable.corn_foreground);
         shapeList.add(corn);
 
-        Plant eggplant = new Plant("3","eggplant", R.drawable.eggplant_foreground);
+        PlantSearchActivity eggplant = new PlantSearchActivity("3","eggplant", R.drawable.eggplant_foreground);
         shapeList.add(eggplant);
 
-        Plant onion = new Plant("4","onion", R.drawable.onion_foreground);
+        PlantSearchActivity onion = new PlantSearchActivity("4","onion", R.drawable.onion_foreground);
         shapeList.add(onion);
 
-        Plant pea = new Plant("5", "pea", R.drawable.pea_foreground);
+        PlantSearchActivity pea = new PlantSearchActivity("5", "pea", R.drawable.pea_foreground);
         shapeList.add(pea);
 
-        Plant potato = new Plant("6","potato", R.drawable.potato_foreground);
+        PlantSearchActivity potato = new PlantSearchActivity("6","potato", R.drawable.potato_foreground);
         shapeList.add(potato);
 
-        Plant tomato = new Plant("7","tomato", R.drawable.toamto_foreground);
+        PlantSearchActivity tomato = new PlantSearchActivity("7","tomato", R.drawable.toamto_foreground);
         shapeList.add(tomato);
     }
 
     private void setUpList()
     {
         listView = (RecyclerView) findViewById(R.id.shapesListView);
-        listView.setLayoutManager(new LinearLayoutManager(this));
-        PlantAdapter customAdapter = new PlantAdapter(getApplicationContext(), shapeList);
+        listView.setLayoutManager(new GridLayoutManager(this, 2));
+        PlantAdapterSearchActivity customAdapter = new PlantAdapterSearchActivity(getApplicationContext(), shapeList);
 //        listView.addItemDecoration(new DividerItemDecoration(listView.getContext(), DividerItemDecoration.VERTICAL));
         listView.setAdapter(customAdapter);
         listView.setItemAnimator(new DefaultItemAnimator());
@@ -122,9 +118,9 @@ public class SearchActivity extends AppCompatActivity
     {
         selectedFilter = status;
 
-        ArrayList<Plant> filteredShapes = new ArrayList<Plant>();
+        ArrayList<PlantSearchActivity> filteredShapes = new ArrayList<PlantSearchActivity>();
 
-        for(Plant plant: shapeList)
+        for(PlantSearchActivity plant: shapeList)
         {
             if(plant.getName().toLowerCase().contains(status))
             {
@@ -142,7 +138,7 @@ public class SearchActivity extends AppCompatActivity
             }
         }
 
-        PlantAdapter adapter = new PlantAdapter(getApplicationContext(), filteredShapes);
+        PlantAdapterSearchActivity adapter = new PlantAdapterSearchActivity(getApplicationContext(), filteredShapes);
         listView.setAdapter(adapter);
     }
 
@@ -153,7 +149,7 @@ public class SearchActivity extends AppCompatActivity
     {
         selectedFilter = "all";
 
-        PlantAdapter adapter = new PlantAdapter(getApplicationContext(), shapeList);
+        PlantAdapterSearchActivity adapter = new PlantAdapterSearchActivity(getApplicationContext(), shapeList);
         listView.setAdapter(adapter);
     }
 
