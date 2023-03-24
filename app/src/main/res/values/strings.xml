@@ -10,5 +10,7 @@
     <string name="fertilizer">Fertilizer</string>
     <string name="watering">Watering</string>
     <string name="weekly_growth_ananlysis">Weekly Growth Ananlysis</string>
+    <string name="plants">Plants</string>
+    <string name="back">Back</string>
     <string name="weather_image">Weather Image</string>
 </resources>

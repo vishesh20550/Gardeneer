@@ -6,6 +6,9 @@ class PlantSearchActivity
     private String id;
     private String name;
     private int image;
+    private String item_type;
+    private String zone_type;
+    private String season_type;
 
     public PlantSearchActivity(String id, String name, int image) {
         this.id = id;

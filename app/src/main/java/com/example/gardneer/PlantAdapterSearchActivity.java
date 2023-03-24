@@ -7,7 +7,9 @@ import android.view.ViewGroup;
 import java.util.List;
 import android.content.Intent;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,10 +24,15 @@ public class PlantAdapterSearchActivity extends RecyclerView.Adapter<PlantAdapte
 
         TextView textName;
         ImageView imageView;
+        ImageView addbutton;
+        LinearLayout linearLayout;
         public ViewHolder(View view) {
             super(view);
             textName = view.findViewById(R.id.plantName);
             imageView = view.findViewById(R.id.plantImage);
+            linearLayout = view.findViewById(R.id.searchpagenextbutton);
+            addbutton = view.findViewById(R.id.searchpageaddbutton);
+
         }
     }
 
@@ -51,11 +58,19 @@ public class PlantAdapterSearchActivity extends RecyclerView.Adapter<PlantAdapte
         itemHolder.textName.setText(plant.getName());
         itemHolder.imageView.setImageResource(plant.getImage());
 
-        itemHolder.textName.setOnClickListener(view -> {
+        itemHolder.linearLayout.setOnClickListener(view -> {
             Intent intent = new Intent(context,DetailActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-            intent.putExtra("id", plant.getName());
+            intent.putExtra("id", plant.getId());
             context.startActivity(intent);
+        });
+
+        itemHolder.addbutton.setOnClickListener(view -> {
+            Toast.makeText(context,"Add code to go the the main screen and add the plant",Toast.LENGTH_SHORT).show();
+//            Intent intent = new Intent(context,DetailActivity.class);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+//            intent.putExtra("id", plant.getName());
+//            context.startActivity(intent);
         });
     }
 
