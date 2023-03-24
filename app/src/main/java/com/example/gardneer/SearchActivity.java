@@ -6,9 +6,13 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.SearchView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -22,12 +26,32 @@ public class SearchActivity extends AppCompatActivity
     private String selectedFilter = "all";
     private String currentSearchText = "";
     private SearchView searchView;
+    private TextView backButton;
+    private ImageView filterButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        backButton = findViewById(R.id.searchactivitybackbutton);
+        filterButton = findViewById(R.id.FilterSearchActivity);
+
+        backButton.setOnClickListener(view -> {
+            Toast.makeText(this,"Define and call on backpressed",Toast.LENGTH_SHORT).show();
+//            Intent intent = new Intent(context,DetailActivity.class);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+//            intent.putExtra("id", plant.getName());
+//            context.startActivity(intent);
+        });
+
+        filterButton.setOnClickListener(view -> {
+            Toast.makeText(this,"adddrop down filter",Toast.LENGTH_SHORT).show();
+//            Intent intent = new Intent(context,DetailActivity.class);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+//            intent.putExtra("id", plant.getName());
+//            context.startActivity(intent);
+        });
 
         initSearchWidgets();
         setupData();

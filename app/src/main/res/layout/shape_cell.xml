@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -18,22 +19,43 @@
         android:layout_weight="1">
 
         <ImageView
-            android:id="@+id/plantImage"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:id="@+id/searchpageaddbutton"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="top|end"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:background="@drawable/circle_background"
+            android:background="@drawable/img_plus"
             android:scaleType="centerCrop" />
 
-        <TextView
-            android:id="@+id/plantName"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:text="Plant name"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="20dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:id="@+id/searchpagenextbutton"
+            >
+
+            <ImageView
+                android:id="@+id/plantImage"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/circle_background"
+                android:scaleType="centerCrop" />
+
+            <TextView
+                android:id="@+id/plantName"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="Plant name"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="17dp" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
 </RelativeLayout>
