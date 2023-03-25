@@ -7,237 +7,447 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:layout_margin = "5dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/backButtonDetailActivity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/back"
-            android:layout_alignParentStart="true"
-            android:textColor="@android:color/black"
-            android:textSize="15sp"
-            android:layout_marginLeft="5dp" />
-
-        <ImageView
-            android:id="@+id/plantImageDetailActivity"
-            android:layout_width="170dp"
-            android:layout_height="170dp"
-            android:layout_marginTop="10dp"
-            android:layout_centerInParent = "true"
-            android:background="@drawable/rectangle_bg_light_green_a700_radius_81_5"
-            />
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        tools:ignore="InefficientWeight,UselessParent">
 
         <LinearLayout
-            android:id="@+id/addToListDetailActivity"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="5dp">
-            <ImageView
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_margin = "5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/backButtonDetailActivity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/back"
+                    android:layout_alignParentStart="true"
+                    android:textColor="@android:color/black"
+                    android:textSize="15sp"
+                    android:layout_marginLeft="5dp" />
+
+                <ImageView
+                    android:id="@+id/plantImageDetailActivity"
+                    android:layout_width="170dp"
+                    android:layout_height="170dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_centerInParent = "true"
+                    android:background="@drawable/rectangle_bg_light_green_a700_radius_81_5"
+                    />
+
+                <LinearLayout
+                    android:id="@+id/addToListDetailActivity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="5dp">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/img_bxbxaddtoqu" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/AddToList"
+                        android:textColor="@android:color/black"
+                        android:textSize="15sp"
+                        android:layout_marginLeft="8dp" />
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/plantNameDetailActivity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/img_bxbxaddtoqu" />
+                android:layout_gravity="center_horizontal"
+                android:text="shape name"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="20dp" />
+            <TextView
+                android:id="@+id/plantScientificNameDetailActivity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="shape Scientific name"
+                android:textColor="@color/black_900_a2"
+                android:textSize="17dp" />
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/weeklyGrowthLinearLayout"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="@dimen/_9pxv"
+                android:background="@drawable/rectangle_bg_gray_200_border_black_900_radius_20"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/seasonWeatherLL"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/seasonLLDetailActivity"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginVertical="5dp"
+                        android:layout_weight="0.47"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/seasonIVDetailActivity"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/img_signal"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:id="@+id/GerminationseasonTVDetailActivity"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="0.79"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:singleLine="true"
+                            android:text="Season"
+                            android:textColor="@color/black" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/weatherLLDetailActivity"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginVertical="5dp"
+                        android:layout_weight="0.47"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/weatherIVDetailActivity"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/img_settings_amber_401"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:id="@+id/weatherTVDetailActivity"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="0.79"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:singleLine="true"
+                            android:text="Weather"
+                            android:textColor="@color/black" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/weeksMonthsLLDetailActivity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/weeksLLDetailActivity"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginVertical="5dp"
+                        android:layout_weight="0.47"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/weeksIVDetailActivity"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/img_calendar"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:id="@+id/weeksTVDetailActivity"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="0.79"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:singleLine="true"
+                            android:text="Season"
+                            android:textColor="@color/black" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/monthsLLDetailActivity"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginVertical="5dp"
+                        android:layout_weight="0.47"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/monthsIVDetailActivity"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/img_calendar"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:id="@+id/HarvestSeasonTVDetailActivity"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="0.79"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:singleLine="true"
+                            android:text="Weather"
+                            android:textColor="@color/black" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/IntroDetailActivity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/loremIpsum"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin = "8dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/PlantingDepth"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="7dp" />
+                <TextView
+                    android:id="@+id/PlantingDepthDetailActivity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Text"
+                    android:textColor="@android:color/black"
+                    android:textSize="17sp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="10dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft ="8dp"
+                android:layout_marginRight ="8dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Water"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="7dp" />
+                <TextView
+                    android:id="@+id/WaterDetailActivity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Text"
+                    android:textColor="@android:color/black"
+                    android:textSize="17sp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="10dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft ="8dp"
+                android:layout_marginRight ="8dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Germination"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="7dp" />
+                <TextView
+                    android:id="@+id/GerminationDetailActivity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Text"
+                    android:textColor="@android:color/black"
+                    android:textSize="17sp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="10dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft ="8dp"
+                android:layout_marginRight ="8dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/SproutToHarvest"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="7dp" />
+                <TextView
+                    android:id="@+id/SproutToHarvestDetailActivity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Text"
+                    android:textColor="@android:color/black"
+                    android:textSize="17sp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="10dp"/>
+            </LinearLayout>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/AddToList"
+                android:text="@string/GoodNeighbours"
                 android:textColor="@android:color/black"
-                android:textSize="15sp"
-                android:layout_marginLeft="8dp" />
+                android:textSize="20sp"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="15dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/GoodNeighbours" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/BadNeighbours"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="15dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/BadNeighbours"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin = "8dp"
+                android:background="@drawable/rectangle_bg_gray_301_radius_15">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/PlantingGuide"
+                    android:textColor="@android:color/black"
+                    android:textSize="23sp"
+                    android:layout_gravity="center_horizontal" />
+                <TextView
+                    android:id="@+id/plantingGuideDetailActivity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/loremIpsum"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin = "8dp"
+                android:background="@drawable/rectangle_bg_gray_301_radius_15">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/feeding"
+                    android:textColor="@android:color/black"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="23sp" />
+                <TextView
+                    android:id="@+id/feedingDetailActivity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/loremIpsum"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin = "8dp"
+                android:background="@drawable/rectangle_bg_gray_301_radius_15">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Harvest"
+                    android:textColor="@android:color/black"
+                    android:textSize="23sp"
+                    android:layout_gravity="center_horizontal" />
+                <TextView
+                    android:id="@+id/HarvestDetailActivity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/loremIpsum"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"/>
         </LinearLayout>
 
-    </RelativeLayout>
-
-    <TextView
-        android:id="@+id/plantNameDetailActivity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="shape name"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="20dp" />
-    <TextView
-        android:id="@+id/plantScientificNameDetailActivity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="shape Scientific name"
-        android:textColor="@color/black_900_a2"
-        android:textSize="17dp" />
-
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/weeklyGrowthLinearLayout"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="@dimen/_9pxv"
-        android:background="@drawable/rectangle_bg_gray_200_border_black_900_radius_20"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:id="@+id/seasonWeatherLL"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:id="@+id/seasonLL"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginVertical="5dp"
-                android:layout_weight="0.47"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:id="@+id/seasonIV"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/img_signal"
-                    tools:ignore="ContentDescription" />
-
-                <TextView
-                    android:id="@+id/seasonTV"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="10dp"
-                    android:layout_weight="0.79"
-                    android:ellipsize="end"
-                    android:gravity="center"
-                    android:singleLine="true"
-                    android:text="Season"
-                    android:textColor="@color/black" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/weatherLL"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginVertical="5dp"
-                android:layout_weight="0.47"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:id="@+id/weatherIV"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/img_settings_amber_401"
-                    tools:ignore="ContentDescription" />
-
-                <TextView
-                    android:id="@+id/weatherTV"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="10dp"
-                    android:layout_weight="0.79"
-                    android:ellipsize="end"
-                    android:gravity="center"
-                    android:singleLine="true"
-                    android:text="Weather"
-                    android:textColor="@color/black" />
-            </LinearLayout>
         </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/weeksMonthsLL"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:id="@+id/weeksLL"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginVertical="5dp"
-                android:layout_weight="0.47"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:id="@+id/weeksIV"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/img_calendar"
-                    tools:ignore="ContentDescription" />
-
-                <TextView
-                    android:id="@+id/weeksTV"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="10dp"
-                    android:layout_weight="0.79"
-                    android:ellipsize="end"
-                    android:gravity="center"
-                    android:singleLine="true"
-                    android:text="Season"
-                    android:textColor="@color/black" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/monthsLL"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginVertical="5dp"
-                android:layout_weight="0.47"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:id="@+id/monthsIV"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/img_calendar"
-                    tools:ignore="ContentDescription" />
-
-                <TextView
-                    android:id="@+id/monthsTV"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="10dp"
-                    android:layout_weight="0.79"
-                    android:ellipsize="end"
-                    android:gravity="center"
-                    android:singleLine="true"
-                    android:text="Weather"
-                    android:textColor="@color/black" />
-            </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
-
-
-
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/GoodNeighbours"
-        />
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/BadNeighbours"/>
-
+    </ScrollView>
 
 </LinearLayout>
