@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class PlantAdapterSearchActivity extends RecyclerView.Adapter<PlantAdapterSearchActivity.ViewHolder>{
     private Context context;
 
-    private List<PlantSearchActivity> list;
+    private List<PlantBasicDetails> list;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -37,7 +37,7 @@ public class PlantAdapterSearchActivity extends RecyclerView.Adapter<PlantAdapte
     }
 
 
-    public PlantAdapterSearchActivity(Context context, List<PlantSearchActivity> list) {
+    public PlantAdapterSearchActivity(Context context, List<PlantBasicDetails> list) {
         this.context = context;
         this.list = list;
     }
@@ -54,7 +54,7 @@ public class PlantAdapterSearchActivity extends RecyclerView.Adapter<PlantAdapte
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         ViewHolder itemHolder = (ViewHolder) holder;
 
-        final PlantSearchActivity plant = (PlantSearchActivity) list.get(position);
+        final PlantBasicDetails plant = (PlantBasicDetails) list.get(position);
         itemHolder.textName.setText(plant.getName());
         itemHolder.imageView.setImageResource(plant.getImage());
 

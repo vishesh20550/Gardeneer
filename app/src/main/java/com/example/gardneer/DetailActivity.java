@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class DetailActivity extends AppCompatActivity {
-    PlantSearchActivity selectedShape;
+    PlantBasicDetails selectedShape;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -27,9 +27,9 @@ public class DetailActivity extends AppCompatActivity {
         selectedShape = getParsedShape(parsedStringID);
     }
 
-    private PlantSearchActivity getParsedShape(String parsedID)
+    private PlantBasicDetails getParsedShape(String parsedID)
     {
-        for (PlantSearchActivity shape : SearchActivity.shapeList)
+        for (PlantBasicDetails shape : SearchActivity.shapeList)
         {
             if(shape.getId().equals(parsedID))
                 return shape;

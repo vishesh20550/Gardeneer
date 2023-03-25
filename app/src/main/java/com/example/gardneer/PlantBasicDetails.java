@@ -1,16 +1,16 @@
 package com.example.gardneer;
 import java.util.Comparator;
 
-class PlantSearchActivity
+class PlantBasicDetails
 {
     private String id;
     private String name;
     private int image;
-    private String item_type;
-    private String zone_type;
-    private String season_type;
+//    private String item_type;
+//    private String zone_type;
+//    private String season_type;
 
-    public PlantSearchActivity(String id, String name, int image) {
+    public PlantBasicDetails(String id, String name, int image) {
         this.id = id;
         this.name = name;
         this.image = image;
@@ -40,10 +40,10 @@ class PlantSearchActivity
         this.image = image;
     }
 
-    public static Comparator<PlantSearchActivity> idAscending = new Comparator<PlantSearchActivity>()
+    public static Comparator<PlantBasicDetails> idAscending = new Comparator<PlantBasicDetails>()
     {
         @Override
-        public int compare(PlantSearchActivity shape1, PlantSearchActivity shape2)
+        public int compare(PlantBasicDetails shape1, PlantBasicDetails shape2)
         {
             int id1 = Integer.valueOf(shape1.getId());
             int id2 = Integer.valueOf(shape2.getId());
@@ -52,10 +52,10 @@ class PlantSearchActivity
         }
     };
 
-    public static Comparator<PlantSearchActivity> nameAscending = new Comparator<PlantSearchActivity>()
+    public static Comparator<PlantBasicDetails> nameAscending = new Comparator<PlantBasicDetails>()
     {
         @Override
-        public int compare(PlantSearchActivity shape1, PlantSearchActivity shape2)
+        public int compare(PlantBasicDetails shape1, PlantBasicDetails shape2)
         {
             String name1 = shape1.getName();
             String name2 = shape2.getName();
