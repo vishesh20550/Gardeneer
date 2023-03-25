@@ -14,4 +14,19 @@
     <string name="back">Back</string>
     <string name="AddToList">Add to List</string>
     <string name="weather_image">Weather Image</string>
+    <string name="wishlist">Wishlist</string>
+    <string name="about_us">About Us</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="settings">Settings</string>
+    <string name="log_out">Log Out</string>
+    <string name="profile">Profile</string>
+    <string name="side_nav_open">Open</string>
+    <string name="side_nav_close">Close</string>
+    <string name="nav_header_title">Nav Head Title</string>
+    <string name="nav_header_subtitle">Nav Head Subtitle</string>
+    <string name="other">Other</string>
+    <string name="title_activity_navigation_drawer">NavigationDrawerActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_settings">Settings</string>
 </resources>
