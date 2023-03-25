@@ -6,10 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@color/white">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -21,32 +21,28 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/backbutton_searchactivity"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/searchactivitybackbutton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/back"
-                android:textColor="@android:color/black"
-                android:textSize="15sp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="30dp"
-                tools:layout_editor_absoluteX="165dp"
-                tools:layout_editor_absoluteY="14dp" />
+            android:layout_height="wrap_content"
+            android:text="@string/back"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="30dp"
+            tools:layout_editor_absoluteX="165dp"
+            tools:layout_editor_absoluteY="14dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/plants"
-                android:textColor="@android:color/black"
-                android:textSize="35sp"
-                tools:layout_editor_absoluteX="165dp"
-                tools:layout_editor_absoluteY="14dp" />
-        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plants"
+            android:textColor="@android:color/black"
+            android:textSize="35sp"
+            tools:layout_editor_absoluteX="165dp"
+            tools:layout_editor_absoluteY="14dp"
+            android:layout_gravity="center"
+            />
 </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
@@ -78,78 +74,11 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:text="All"
-            android:id="@+id/allFilter"
-            android:background="@color/colorPrimary"
-            android:onClick="allFilterTapped"/>
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:text="Triangle"
-            android:id="@+id/triangleFilter"
-            android:background="@color/colorPrimary"
-            android:onClick="triangleFilterTapped"/>
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:text="Square"
-            android:id="@+id/squareFilter"
-            android:background="@color/colorPrimary"
-            android:onClick="squareFilterTapped"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <Button
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:text="Octagon"
-            android:id="@+id/octagonFilter"
-            android:background="@color/colorPrimary"
-            android:onClick="octagonFilterTapped"/>
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:text="Rectangle"
-            android:id="@+id/rectangleFilter"
-            android:background="@color/colorPrimary"
-            android:onClick="rectangleFilterTapped"/>
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:text="Circle"
-            android:id="@+id/circleFilter"
-            android:background="@color/colorPrimary"
-            android:onClick="circleFilterTapped"/>
-
-    </LinearLayout>
-
-
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/shapesListView"
+        android:background="@color/white"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="2"/>
 

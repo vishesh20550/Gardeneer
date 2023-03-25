@@ -7,9 +7,8 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class DetailActivity extends AppCompatActivity
-{
-    PlantSearchActivity selectedShape;
+public class DetailActivity extends AppCompatActivity {
+    PlantBasicDetails selectedShape;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -28,9 +27,9 @@ public class DetailActivity extends AppCompatActivity
         selectedShape = getParsedShape(parsedStringID);
     }
 
-    private PlantSearchActivity getParsedShape(String parsedID)
+    private PlantBasicDetails getParsedShape(String parsedID)
     {
-        for (PlantSearchActivity shape : SearchActivity.shapeList)
+        for (PlantBasicDetails shape : SearchActivity.shapeList)
         {
             if(shape.getId().equals(parsedID))
                 return shape;
@@ -40,10 +39,10 @@ public class DetailActivity extends AppCompatActivity
 
     private void setValues()
     {
-        TextView tv = (TextView) findViewById(R.id.plantName);
-        ImageView iv = (ImageView) findViewById(R.id.plantImage);
+        TextView tv = (TextView) findViewById(R.id.plantNameDetailActivity);
+        ImageView iv = (ImageView) findViewById(R.id.plantImageDetailActivity);
 
-        tv.setText(selectedShape.getId() + " - " + selectedShape.getName());
+        tv.setText(selectedShape.getName());
         iv.setImageResource(selectedShape.getImage());
     }
 }

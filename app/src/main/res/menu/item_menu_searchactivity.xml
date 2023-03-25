@@ -9,5 +9,9 @@
     <item
         android:id="@+id/herbs_item"
         android:title="Herbs" />
+    <item
+        android:id="@+id/houseplant_item"
+        android:title="Houseplant" />
+
 
 </menu>

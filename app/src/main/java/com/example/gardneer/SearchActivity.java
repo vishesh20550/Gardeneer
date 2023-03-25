@@ -12,14 +12,13 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class SearchActivity extends AppCompatActivity
 {
 
-    public static ArrayList<PlantSearchActivity> shapeList = new ArrayList<PlantSearchActivity>();
+    public static ArrayList<PlantBasicDetails> shapeList;
 
     private RecyclerView listView;
 
@@ -34,12 +33,11 @@ public class SearchActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        backButton = findViewById(R.id.searchactivitybackbutton);
+        backButton = findViewById(R.id.backbutton_searchactivity);
         filterButton = findViewById(R.id.FilterSearchActivity);
 
         backButton.setOnClickListener(view -> {
-            Toast.makeText(this,"Define and call on backpressed",Toast.LENGTH_SHORT).show();
-
+            onBackPressed();
         });
 
         filterButton.setOnClickListener(new View.OnClickListener() {
@@ -151,6 +149,9 @@ public class SearchActivity extends AppCompatActivity
                     case R.id.herbs_item:
                         // Handle sub-menu item two click
                         return true;
+                    case R.id.houseplant_item:
+                        // Handle sub-menu item two click
+                        return true;
                     default:
                         return false;
                 }
@@ -173,9 +174,9 @@ public class SearchActivity extends AppCompatActivity
             public boolean onQueryTextChange(String s)
             {
                 currentSearchText = s;
-                ArrayList<PlantSearchActivity> filteredShapes = new ArrayList<PlantSearchActivity>();
+                ArrayList<PlantBasicDetails> filteredShapes = new ArrayList<PlantBasicDetails>();
 
-                for(PlantSearchActivity shape: shapeList)
+                for(PlantBasicDetails shape: shapeList)
                 {
                     if(shape.getName().toLowerCase().contains(s.toLowerCase()))
                     {
@@ -201,37 +202,38 @@ public class SearchActivity extends AppCompatActivity
     }
 
     private void setupData() {
-        PlantSearchActivity cabbage = new PlantSearchActivity("0", "Cabbage", R.drawable.cabbage_foreground);
+        shapeList = new ArrayList<PlantBasicDetails>();
+        PlantBasicDetails cabbage = new PlantBasicDetails("0", "Cabbage", R.drawable.cabbage_foreground);
         shapeList.add(cabbage);
 
-        PlantSearchActivity carrot = new PlantSearchActivity("1","Carrot", R.drawable.carrot_foreground);
+        PlantBasicDetails carrot = new PlantBasicDetails("1","Carrot", R.drawable.carrot_foreground);
         shapeList.add(carrot);
 
-        PlantSearchActivity corn = new PlantSearchActivity("2","Corn", R.drawable.corn_foreground);
+        PlantBasicDetails corn = new PlantBasicDetails("2","Corn", R.drawable.corn_foreground);
         shapeList.add(corn);
 
-        PlantSearchActivity eggplant = new PlantSearchActivity("3","Eggplant", R.drawable.eggplant_foreground);
+        PlantBasicDetails eggplant = new PlantBasicDetails("3","Eggplant", R.drawable.eggplant_foreground);
         shapeList.add(eggplant);
 
-        PlantSearchActivity onion = new PlantSearchActivity("4","Onion", R.drawable.onion_foreground);
+        PlantBasicDetails onion = new PlantBasicDetails("4","Onion", R.drawable.onion_foreground);
         shapeList.add(onion);
 
-        PlantSearchActivity pea = new PlantSearchActivity("5", "Pea", R.drawable.pea_foreground);
+        PlantBasicDetails pea = new PlantBasicDetails("5", "Pea", R.drawable.pea_foreground);
         shapeList.add(pea);
 
-        PlantSearchActivity potato = new PlantSearchActivity("6","Potato", R.drawable.potato_foreground);
+        PlantBasicDetails potato = new PlantBasicDetails("6","Potato", R.drawable.potato_foreground);
         shapeList.add(potato);
 
-        PlantSearchActivity tomato = new PlantSearchActivity("7","Tomato", R.drawable.toamto_foreground);
+        PlantBasicDetails tomato = new PlantBasicDetails("7","Tomato", R.drawable.toamto_foreground);
         shapeList.add(tomato);
 
-        PlantSearchActivity aloevera = new PlantSearchActivity("7","Aloevera", R.drawable.aloevera_foreground);
+        PlantBasicDetails aloevera = new PlantBasicDetails("7","Aloevera", R.drawable.aloevera_foreground);
         shapeList.add(aloevera);
 
-        PlantSearchActivity sunflower = new PlantSearchActivity("7","Sunflower", R.drawable.sunflower_foreground);
+        PlantBasicDetails sunflower = new PlantBasicDetails("7","Sunflower", R.drawable.sunflower_foreground);
         shapeList.add(sunflower);
 
-        PlantSearchActivity marigold  = new PlantSearchActivity("7","marigold", R.drawable.marigold_foreground);
+        PlantBasicDetails marigold  = new PlantBasicDetails("7","marigold", R.drawable.marigold_foreground);
         shapeList.add(marigold);
     }
 
@@ -248,9 +250,9 @@ public class SearchActivity extends AppCompatActivity
 
     private void filterList(String status) {
         selectedFilter = status;
-        ArrayList<PlantSearchActivity> filteredShapes = new ArrayList<PlantSearchActivity>();
+        ArrayList<PlantBasicDetails> filteredShapes = new ArrayList<PlantBasicDetails>();
 
-        for(PlantSearchActivity plant: shapeList)
+        for(PlantBasicDetails plant: shapeList)
         {
             if(plant.getName().toLowerCase().contains(status))
             {
