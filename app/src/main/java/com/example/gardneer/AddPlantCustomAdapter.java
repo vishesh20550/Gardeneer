@@ -34,7 +34,6 @@ public class AddPlantCustomAdapter extends RecyclerView.Adapter<AddPlantCustomAd
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.plantPicImageView.setImageResource(R.drawable.ic_launcher_foreground);
 //        holder.pantNameTextView.setText(plantInfos.get(position).name);
-        Toast.makeText(context, "Result", Toast.LENGTH_SHORT).show();
     }
 
     @Override

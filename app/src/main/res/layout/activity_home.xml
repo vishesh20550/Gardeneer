@@ -411,8 +411,9 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </ScrollView>
-
     </LinearLayout>
+    <include layout="@layout/layout_progress_overlay"/>
+
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
