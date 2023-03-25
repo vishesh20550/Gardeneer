@@ -44,7 +44,6 @@ import org.json.JSONObject;
 public class PlantAdapterSearchActivity extends RecyclerView.Adapter<PlantAdapterSearchActivity.ViewHolder>{
     private Activity activity;
     private List<PlantBasicDetails> list;
-//    ProgressDialog progressDialog;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -84,11 +83,7 @@ public class PlantAdapterSearchActivity extends RecyclerView.Adapter<PlantAdapte
         itemHolder.imageView.setImageResource(plant.getImage());
 
         itemHolder.linearLayout.setOnClickListener(view -> {
-//            progressDialog = new ProgressDialog(activity);
-//            progressDialog.setMessage("Fetching Data");
-//            progressDialog.setCancelable(false);
-//            progressDialog.show();
-            Toast.makeText(activity, "No hit on Dataset", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(activity, "Fetching Details", Toast.LENGTH_SHORT).show();
             getDataFromAPI(plant.getName(), plant);
         });
 
@@ -112,7 +107,7 @@ public class PlantAdapterSearchActivity extends RecyclerView.Adapter<PlantAdapte
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    ArrayList<String> listdata = new ArrayList<>();
+                    ArrayList<String> headerData = new ArrayList<>();
                     ArrayList<String> plantData = new ArrayList<>();
                     int flag = 0;
                     JSONArray values = response.getJSONArray("values");
@@ -120,22 +115,21 @@ public class PlantAdapterSearchActivity extends RecyclerView.Adapter<PlantAdapte
                         JSONArray jArray = (JSONArray) values.get(0);
                         if (jArray != null) {
                             for (int i=0;i<jArray.length();i++){
-                                listdata.add(jArray.getString(i));
+                                headerData.add(jArray.getString(i));
                             }
                         }
                         for(int i = 1; i < values.length(); i++){
                             JSONArray jsonArray = (JSONArray) values.get(i);
-                            if (jsonArray != null && (jsonArray.getString(listdata.indexOf("plant_name"))).equals(plant_name)) {
+                            if (jsonArray != null && (jsonArray.getString(headerData.indexOf("plant_name"))).equals(plant_name)) {
                                 flag = 1;
                                 for (int j=0;j<jsonArray.length();j++) {
                                     plantData.add(jsonArray.getString(j));
                                 }
-//                                progressDialog.dismiss();
                                 Intent intent = new Intent(activity,DetailActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
                                 intent.putExtra("id", plant.getId());
                                 intent.putExtra("plantData", plantData);
-                                intent.putExtra("listdata", listdata);
+                                intent.putExtra("headerData", headerData);
                                 activity.startActivity(intent);
                                 break;
                             }
@@ -144,7 +138,6 @@ public class PlantAdapterSearchActivity extends RecyclerView.Adapter<PlantAdapte
                             Toast.makeText(activity, "No hit on Dataset", Toast.LENGTH_SHORT).show();
                         }
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

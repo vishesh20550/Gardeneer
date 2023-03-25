@@ -136,38 +136,30 @@ public class SearchActivity extends AppCompatActivity
 
     private void setupData() {
         shapeList = new ArrayList<PlantBasicDetails>();
-        PlantBasicDetails cabbage = new PlantBasicDetails("0", "Cabbage", R.drawable.cabbage_foreground);
-        shapeList.add(cabbage);
-
-        PlantBasicDetails carrot = new PlantBasicDetails("1","Carrot", R.drawable.carrot_foreground);
-        shapeList.add(carrot);
-
-        PlantBasicDetails corn = new PlantBasicDetails("2","Corn", R.drawable.corn_foreground);
-        shapeList.add(corn);
-
-        PlantBasicDetails eggplant = new PlantBasicDetails("3","Eggplant", R.drawable.eggplant_foreground);
-        shapeList.add(eggplant);
-
-        PlantBasicDetails onion = new PlantBasicDetails("4","Onion", R.drawable.onion_foreground);
-        shapeList.add(onion);
-
-        PlantBasicDetails pea = new PlantBasicDetails("5", "Pea", R.drawable.pea_foreground);
-        shapeList.add(pea);
-
-        PlantBasicDetails potato = new PlantBasicDetails("6","Potato", R.drawable.potato_foreground);
-        shapeList.add(potato);
-
-        PlantBasicDetails tomato = new PlantBasicDetails("7","Tomato", R.drawable.toamto_foreground);
+        PlantBasicDetails tomato = new PlantBasicDetails("0","Tomato", R.drawable.toamto_foreground);
         shapeList.add(tomato);
-
-        PlantBasicDetails aloevera = new PlantBasicDetails("7","Aloevera", R.drawable.aloevera_foreground);
+        PlantBasicDetails onion = new PlantBasicDetails("1","Onion", R.drawable.onion_foreground);
+        shapeList.add(onion);
+        PlantBasicDetails potato = new PlantBasicDetails("2","Potato", R.drawable.potato_foreground);
+        shapeList.add(potato);
+        PlantBasicDetails cabbage = new PlantBasicDetails("4", "Cabbage", R.drawable.cabbage_foreground);
+        shapeList.add(cabbage);
+        PlantBasicDetails lemon = new PlantBasicDetails("5", "Lemon", R.drawable.lemon_foreground);
+        shapeList.add(lemon);
+        PlantBasicDetails spinach = new PlantBasicDetails("6", "Spinach", R.drawable.spinach_foreground);
+        shapeList.add(spinach);
+        PlantBasicDetails pea = new PlantBasicDetails("7", "Pea", R.drawable.pea_foreground);
+        shapeList.add(pea);
+        PlantBasicDetails eggplant = new PlantBasicDetails("8","Eggplant", R.drawable.eggplant_foreground);
+        shapeList.add(eggplant);
+        PlantBasicDetails marigold  = new PlantBasicDetails("9","Marigold", R.drawable.marigold_foreground);
+        shapeList.add(marigold);
+        PlantBasicDetails sunflower = new PlantBasicDetails("10","Sunflower", R.drawable.sunflower_foreground);
+        shapeList.add(sunflower);
+        PlantBasicDetails aloevera = new PlantBasicDetails("11","Aloevera", R.drawable.aloevera_foreground);
         shapeList.add(aloevera);
 
-        PlantBasicDetails sunflower = new PlantBasicDetails("7","Sunflower", R.drawable.sunflower_foreground);
-        shapeList.add(sunflower);
 
-        PlantBasicDetails marigold  = new PlantBasicDetails("7","marigold", R.drawable.marigold_foreground);
-        shapeList.add(marigold);
     }
 
     private void setUpList() {

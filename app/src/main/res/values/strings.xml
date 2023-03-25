@@ -40,5 +40,5 @@
     <string name="Text">text</string>
     <string name="Germination">Germination(in days): </string>
     <string name="SproutToHarvest">Sprout to harvest(in days): </string>
-    <string name="loremIpsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in pellentesque elit. Fusce non tempor turpis. Nunc sed pharetra metus, vitae congue turpis. Quisque efficitur erat eu tellus aliquam laoreet. Nam sodales eros vitae gravida lobortis. Vivamus ornare dui non euismod sagittis. Etiam diam velit.</string>
+    <string name="na">No-Data in local Cache</string>
 </resources>

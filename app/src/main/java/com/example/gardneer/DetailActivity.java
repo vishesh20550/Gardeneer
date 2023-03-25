@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class DetailActivity extends AppCompatActivity {
     PlantBasicDetails selectedShape;
     TextView backButton;
-    TextView plantNameTV;
+    TextView plantNameTV, plantScientificName;
     ImageView plantImageTV;
     LinearLayout addToListButton;
     TextView GerminationSeasonTV, weatherTV, weeksTV, HarvestSeasonTV;
@@ -31,7 +31,7 @@ public class DetailActivity extends AppCompatActivity {
     ArrayList<PlantBasicDetails> GoodNeighboursList;
     ArrayList<PlantBasicDetails> BadNeighboursList;
 
-    ArrayList<String> listdata;
+    ArrayList<String> headerData;
     ArrayList<String> plantData;
 
 //    1MpuSYBwdZQCcae4bgIFK_azQ1LnA-ahpA0EvF8aLsf0
@@ -42,10 +42,11 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
         Intent previousIntent = getIntent();
         String parsedStringID = previousIntent.getStringExtra("id");
-        listdata = previousIntent.getStringArrayListExtra("listdata");
+        headerData = previousIntent.getStringArrayListExtra("headerData");
         plantData = previousIntent.getStringArrayListExtra("plantData");
         selectedShape = getParsedShape(parsedStringID);
         plantNameTV = (TextView) findViewById(R.id.plantNameDetailActivity);
+        plantScientificName = (TextView) findViewById(R.id.plantScientificNameDetailActivity);
         plantImageTV = (ImageView) findViewById(R.id.plantImageDetailActivity);
         GerminationSeasonTV = (TextView) findViewById(R.id.GerminationseasonTVDetailActivity);
         weatherTV = (TextView) findViewById(R.id.weatherTVDetailActivity);
@@ -74,23 +75,62 @@ public class DetailActivity extends AppCompatActivity {
         plantNameTV.setText(selectedShape.getName());
         plantImageTV.setImageResource(selectedShape.getImage());
 
-        if(plantData != null){
-            Log.i(selectedShape.getName(), String.valueOf(plantData));
+        if(plantData != null && headerData != null){
+            if(plantData.get(headerData.indexOf("scientific_name")) != null){
+                plantScientificName.setText(plantData.get(headerData.indexOf("scientific_name")).trim());
+            }
+            if(plantData.get(headerData.indexOf("seed")) != null){
+                GerminationSeasonTV.setText(plantData.get(headerData.indexOf("seed")).trim());
+            }
+            if(plantData.get(headerData.indexOf("weather_requirement")) != null){
+                weatherTV.setText(plantData.get(headerData.indexOf("weather_requirement")).trim());
+            }
+            if(plantData.get(headerData.indexOf("sprout_to_harvest")) != null){
+                weeksTV.setText(plantData.get(headerData.indexOf("sprout_to_harvest")).trim());
+            }
+            if(plantData.get(headerData.indexOf("season")) != null){
+                HarvestSeasonTV.setText(plantData.get(headerData.indexOf("season")).trim());
+            }
+            if(plantData.get(headerData.indexOf("intro")) != null){
+                IntroDetail.setText(plantData.get(headerData.indexOf("intro")).trim());
+            }
+            if(plantData.get(headerData.indexOf("planting_depth")) != null){
+                PlantingDepthTV.setText(plantData.get(headerData.indexOf("planting_depth")).trim());
+            }
+            if(plantData.get(headerData.indexOf("water")) != null){
+                WaterTV.setText(plantData.get(headerData.indexOf("water")).trim());
+            }
+            if(plantData.get(headerData.indexOf("germination")) != null){
+                GerminationTV.setText(plantData.get(headerData.indexOf("germination")).trim());
+            }
+            if(plantData.get(headerData.indexOf("sprout_to_harvest")) != null){
+                SproutToHarvestTV.setText(plantData.get(headerData.indexOf("sprout_to_harvest")).trim());
+            }
+            if(plantData.get(headerData.indexOf("feeding")) != null){
+                feedingTV.setText(plantData.get(headerData.indexOf("feeding")).trim());
+            }
+            if(plantData.get(headerData.indexOf("harvest")) != null){
+                HarvestTV.setText(plantData.get(headerData.indexOf("harvest")).trim());
+            }
         }
+        else{
+            Toast.makeText(this, "Opening In Minimalistic look", Toast.LENGTH_SHORT).show();
 
-//        GerminationSeasonTV.setText();
-//        weatherTV.setText();
-//        weeksTV.setText();
-//        HarvestSeasonTV.setText();
+//            String na =  "No-Data";
+//            GerminationSeasonTV.setText(na);
+//            weatherTV.setText(na);
+//            weeksTV.setText(na);
+//            HarvestSeasonTV.setText(na);
 //
-//        IntroDetail.setText();
-//        PlantingDepthTV.setText();
-//        WaterTV.setText(); GerminationTV.setText();
-//        SproutToHarvestTV.setText();
+//            IntroDetail.setText(na);
+//            PlantingDepthTV.setText(na);
+//            WaterTV.setText(na); GerminationTV.setText(na);
+//            SproutToHarvestTV.setText(na);
 //
-//        plantingGuideTV.setText();
-//        feedingTV.setText();
-//        HarvestTV..setText();
+//            plantingGuideTV.setText(na);
+//            feedingTV.setText(na);
+//            HarvestTV.setText(na);
+        }
     }
 
     public void settingOnclicklisteners(){
@@ -107,12 +147,20 @@ public class DetailActivity extends AppCompatActivity {
         GoodNeighboursList = new ArrayList<>();
         BadNeighboursList = new ArrayList<>();
 
-        for (int i =0 ; i<4;i++){
-            PlantBasicDetails plant = new PlantBasicDetails(String.valueOf(i), "plant", R.drawable.circle_background);
-            GoodNeighboursList.add(plant);
+        if(plantData != null && headerData != null){
+            for (int i =0 ; i<4;i++){
+                PlantBasicDetails plant = new PlantBasicDetails(String.valueOf(i), "plant", R.drawable.circle_background);
+                GoodNeighboursList.add(plant);
+            }
+            for (int i =0 ; i<4;i++){
+                PlantBasicDetails plant = new PlantBasicDetails(String.valueOf(i), "plant", R.drawable.circle_background);
+                BadNeighboursList.add(plant);
+            }
+
         }
-        for (int i =0 ; i<4;i++){
-            PlantBasicDetails plant = new PlantBasicDetails(String.valueOf(i), "plant", R.drawable.circle_background);
+        else {
+            PlantBasicDetails plant = new PlantBasicDetails("-1", "No-Data", R.drawable.circle_background);
+            GoodNeighboursList.add(plant);
             BadNeighboursList.add(plant);
         }
 
