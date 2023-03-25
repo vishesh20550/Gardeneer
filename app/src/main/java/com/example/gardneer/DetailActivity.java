@@ -39,10 +39,10 @@ public class DetailActivity extends AppCompatActivity {
 
     private void setValues()
     {
-        TextView tv = (TextView) findViewById(R.id.plantName);
-        ImageView iv = (ImageView) findViewById(R.id.plantImage);
+        TextView tv = (TextView) findViewById(R.id.plantNameDetailActivity);
+        ImageView iv = (ImageView) findViewById(R.id.plantImageDetailActivity);
 
-        tv.setText(selectedShape.getId() + " - " + selectedShape.getName());
+        tv.setText(selectedShape.getName());
         iv.setImageResource(selectedShape.getImage());
     }
 }

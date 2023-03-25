@@ -34,12 +34,11 @@ public class SearchActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        backButton = findViewById(R.id.searchactivitybackbutton);
+        backButton = findViewById(R.id.backbutton_searchactivity);
         filterButton = findViewById(R.id.FilterSearchActivity);
 
         backButton.setOnClickListener(view -> {
-            Toast.makeText(this,"Define and call on backpressed",Toast.LENGTH_SHORT).show();
-
+            onBackPressed();
         });
 
         filterButton.setOnClickListener(new View.OnClickListener() {

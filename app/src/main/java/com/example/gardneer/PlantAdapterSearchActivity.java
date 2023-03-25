@@ -28,10 +28,10 @@ public class PlantAdapterSearchActivity extends RecyclerView.Adapter<PlantAdapte
         LinearLayout linearLayout;
         public ViewHolder(View view) {
             super(view);
-            textName = view.findViewById(R.id.plantName);
-            imageView = view.findViewById(R.id.plantImage);
-            linearLayout = view.findViewById(R.id.searchpagenextbutton);
-            addbutton = view.findViewById(R.id.searchpageaddbutton);
+            textName = view.findViewById(R.id.plantNameShapeCell);
+            imageView = view.findViewById(R.id.plantImageShapeCell);
+            linearLayout = view.findViewById(R.id.nextbButtonShapeCell);
+            addbutton = view.findViewById(R.id.addButtonShapeCell);
 
         }
     }

@@ -20,7 +20,7 @@
         android:layout_weight="1">
 
         <ImageView
-            android:id="@+id/searchpageaddbutton"
+            android:id="@+id/addButtonShapeCell"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_gravity="top|end"
@@ -34,12 +34,12 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical"
-            android:id="@+id/searchpagenextbutton"
+            android:id="@+id/nextbButtonShapeCell"
             android:background="@color/colorPrimary"
             >
 
             <ImageView
-                android:id="@+id/plantImage"
+                android:id="@+id/plantImageShapeCell"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_alignParentEnd="true"
@@ -48,7 +48,7 @@
                 android:scaleType="centerCrop" />
 
             <TextView
-                android:id="@+id/plantName"
+                android:id="@+id/plantNameShapeCell"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
