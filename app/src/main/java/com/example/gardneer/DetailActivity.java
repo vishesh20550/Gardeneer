@@ -31,6 +31,8 @@ public class DetailActivity extends AppCompatActivity {
     ArrayList<PlantBasicDetails> GoodNeighboursList;
     ArrayList<PlantBasicDetails> BadNeighboursList;
 
+//    1MpuSYBwdZQCcae4bgIFK_azQ1LnA-ahpA0EvF8aLsf0
+//    https://spreadsheets.google.com/feeds/list/1MpuSYBwdZQCcae4bgIFK_azQ1LnA-ahpA0EvF8aLsf0/od6/public/values?alt=json
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
