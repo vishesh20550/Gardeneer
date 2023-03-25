@@ -14,4 +14,16 @@
     <string name="back">Back</string>
     <string name="AddToList">Add to List</string>
     <string name="weather_image">Weather Image</string>
+    <string name="GoodNeighbours">GOOD NEIGHBOURS : </string>
+    <string name="BadNeighbours">BAD NEIGHBOURS : </string>
+    <string name="PlantingGuide">Planting guide</string>
+    <string name="feeding">Feeding</string>
+    <string name="Harvest">Harvest</string>
+    <string name="PlantingDepth">Planting depth : </string>
+    <string name="Water">Water : </string>
+    <string name="Text">text</string>
+    <string name="Germination">Germination(in days): </string>
+    <string name="SproutToHarvest">Sprout to harvest(in days): </string>
+    <string name="loremIpsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in pellentesque elit. Fusce non tempor turpis. Nunc sed pharetra metus, vitae congue turpis. Quisque efficitur erat eu tellus aliquam laoreet. Nam sodales eros vitae gravida lobortis. Vivamus ornare dui non euismod sagittis. Etiam diam velit.</string>
+
 </resources>
