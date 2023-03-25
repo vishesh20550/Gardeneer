@@ -18,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == 1) {
 
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Intent intent= new Intent(this,HomeActivity.class);
+                startActivity(intent);
                 return;
             } else {
                 Toast.makeText(this, "Please allow the Permission", Toast.LENGTH_SHORT).show();
@@ -46,8 +48,8 @@ public class MainActivity extends AppCompatActivity {
         }
         else{
             Log.i("Permissions","Permitted");
+            Intent intent= new Intent(this,HomeActivity.class);
+            startActivity(intent);
         }
-        Intent intent= new Intent(this,HomeActivity.class);
-        startActivity(intent);
     }
 }

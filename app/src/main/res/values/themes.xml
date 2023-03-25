@@ -15,4 +15,13 @@
         <item name="android:fontFamily">@font/poppinsmedium</item>
         <item name="background">@color/white</item>
     </style>
+
+    <style name="Theme.Gardneer.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.Gardneer.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.Gardneer.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
