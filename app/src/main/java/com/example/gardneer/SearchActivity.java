@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,7 +20,7 @@ public class SearchActivity extends AppCompatActivity
 {
 
     public static ArrayList<PlantBasicDetails> shapeList;
-
+    Activity activity;
     private RecyclerView listView;
 
     private String selectedFilter = "all";
@@ -27,15 +28,15 @@ public class SearchActivity extends AppCompatActivity
     private SearchView searchView;
     private TextView backButton;
     private ImageView filterButton;
+//    private ProgressBar loadingPB;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         backButton = findViewById(R.id.backbutton_searchactivity);
         filterButton = findViewById(R.id.FilterSearchActivity);
-
+        activity = this;
         backButton.setOnClickListener(view -> {
             onBackPressed();
         });
@@ -50,14 +51,38 @@ public class SearchActivity extends AppCompatActivity
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
-                            case R.id.season_filter:
-                                season_filter_fun();
+                            case R.id.cold_season:
+                                // Handle sub-menu item one click
                                 return true;
-                            case R.id.zone_filter:
-                                zone_filter_fun();
+                            case R.id.warm_Season:
+                                // Handle sub-menu item two click
                                 return true;
-                            case R.id.item_filter:
-                                item_filter_fun();
+                            case R.id.east_zone:
+                                // Handle sub-menu item one click
+                                return true;
+                            case R.id.west_zone:
+                                // Handle sub-menu item two click
+                                return true;
+                            case R.id.north_zone:
+                                // Handle sub-menu item two click
+                                return true;
+                            case R.id.south_zone:
+                                // Handle sub-menu item two click
+                                return true;
+                            case R.id.central_zone:
+                                // Handle sub-menu item two click
+                                return true;
+                            case R.id.flower_item:
+                                // Handle sub-menu item one click
+                                return true;
+                            case R.id.fruitsandvegitables_item:
+                                // Handle sub-menu item two click
+                                return true;
+                            case R.id.herbs_item:
+                                // Handle sub-menu item two click
+                                return true;
+                            case R.id.houseplant_item:
+                                // Handle sub-menu item two click
                                 return true;
                             default:
                                 return false;
@@ -68,96 +93,9 @@ public class SearchActivity extends AppCompatActivity
                 popupMenu.show();
             }
         });
-
         initSearchWidgets();
         setupData();
         setUpList();
-    }
-
-
-    public void season_filter_fun(){
-        PopupMenu subPopupMenu = new PopupMenu(SearchActivity.this, filterButton);
-        subPopupMenu.getMenuInflater().inflate(R.menu.season_menu_searchactivity, subPopupMenu.getMenu());
-
-        subPopupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                // Handle sub-menu item clicks here
-                switch (item.getItemId()) {
-                    case R.id.cold_season:
-                        // Handle sub-menu item one click
-                        return true;
-                    case R.id.warm_Season:
-                        // Handle sub-menu item two click
-                        return true;
-                    default:
-                        return false;
-                }
-            }
-        });
-        subPopupMenu.show();
-    }
-
-
-    public void zone_filter_fun(){
-        PopupMenu subPopupMenu = new PopupMenu(SearchActivity.this, filterButton);
-        subPopupMenu.getMenuInflater().inflate(R.menu.zone_menu_searchactivity, subPopupMenu.getMenu());
-
-        subPopupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                // Handle sub-menu item clicks here
-                switch (item.getItemId()) {
-                    case R.id.east_zone:
-                        // Handle sub-menu item one click
-                        return true;
-                    case R.id.west_zone:
-                        // Handle sub-menu item two click
-                        return true;
-                    case R.id.north_zone:
-                        // Handle sub-menu item two click
-                        return true;
-                    case R.id.south_zone:
-                        // Handle sub-menu item two click
-                        return true;
-                    case R.id.central_zone:
-                        // Handle sub-menu item two click
-                        return true;
-                    default:
-                        return false;
-                }
-            }
-        });
-        subPopupMenu.show();
-    }
-
-    public void item_filter_fun(){
-        PopupMenu subPopupMenu = new PopupMenu(SearchActivity.this, filterButton);
-        subPopupMenu.getMenuInflater().inflate(R.menu.item_menu_searchactivity, subPopupMenu.getMenu());
-
-        subPopupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                // Handle sub-menu item clicks here
-                switch (item.getItemId()) {
-                    case R.id.flower_item:
-                        // Handle sub-menu item one click
-                        return true;
-                    case R.id.fruitsandvegitables_item:
-                        // Handle sub-menu item two click
-                        return true;
-                    case R.id.herbs_item:
-                        // Handle sub-menu item two click
-                        return true;
-                    case R.id.houseplant_item:
-                        // Handle sub-menu item two click
-                        return true;
-                    default:
-                        return false;
-                }
-            }
-        });
-        subPopupMenu.show();
     }
 
 
@@ -176,24 +114,19 @@ public class SearchActivity extends AppCompatActivity
                 currentSearchText = s;
                 ArrayList<PlantBasicDetails> filteredShapes = new ArrayList<PlantBasicDetails>();
 
-                for(PlantBasicDetails shape: shapeList)
-                {
-                    if(shape.getName().toLowerCase().contains(s.toLowerCase()))
-                    {
-                        if(selectedFilter.equals("all"))
-                        {
+                for(PlantBasicDetails shape: shapeList) {
+                    if(shape.getName().toLowerCase().contains(s.toLowerCase())) {
+                        if(selectedFilter.equals("all")) {
                             filteredShapes.add(shape);
                         }
-                        else
-                        {
-                            if(shape.getName().toLowerCase().contains(selectedFilter))
-                            {
+                        else {
+                            if(shape.getName().toLowerCase().contains(selectedFilter)) {
                                 filteredShapes.add(shape);
                             }
                         }
                     }
                 }
-                PlantAdapterSearchActivity adapter = new PlantAdapterSearchActivity(getApplicationContext(), filteredShapes);
+                PlantAdapterSearchActivity adapter = new PlantAdapterSearchActivity(activity,filteredShapes);
                 listView.setAdapter(adapter);
 
                 return false;
@@ -240,7 +173,7 @@ public class SearchActivity extends AppCompatActivity
     private void setUpList() {
         listView = (RecyclerView) findViewById(R.id.shapesListView);
         listView.setLayoutManager(new GridLayoutManager(this, 2));
-        PlantAdapterSearchActivity customAdapter = new PlantAdapterSearchActivity(getApplicationContext(), shapeList);
+        PlantAdapterSearchActivity customAdapter = new PlantAdapterSearchActivity(activity, shapeList);
         listView.setAdapter(customAdapter);
         listView.setItemAnimator(new DefaultItemAnimator());
     }
@@ -252,36 +185,30 @@ public class SearchActivity extends AppCompatActivity
         selectedFilter = status;
         ArrayList<PlantBasicDetails> filteredShapes = new ArrayList<PlantBasicDetails>();
 
-        for(PlantBasicDetails plant: shapeList)
-        {
-            if(plant.getName().toLowerCase().contains(status))
-            {
-                if(currentSearchText == "")
-                {
+        for(PlantBasicDetails plant: shapeList) {
+            if(plant.getName().toLowerCase().contains(status)) {
+                if(currentSearchText == "") {
                     filteredShapes.add(plant);
                 }
-                else
-                {
-                    if(plant.getName().toLowerCase().contains(currentSearchText.toLowerCase()))
-                    {
+                else {
+                    if(plant.getName().toLowerCase().contains(currentSearchText.toLowerCase())){
                         filteredShapes.add(plant);
                     }
                 }
             }
         }
 
-        PlantAdapterSearchActivity adapter = new PlantAdapterSearchActivity(getApplicationContext(), filteredShapes);
+        PlantAdapterSearchActivity adapter = new PlantAdapterSearchActivity(activity, filteredShapes);
         listView.setAdapter(adapter);
     }
 
 
 
 
-    public void allFilterTapped(View view)
-    {
+    public void allFilterTapped(View view) {
         selectedFilter = "all";
 
-        PlantAdapterSearchActivity adapter = new PlantAdapterSearchActivity(getApplicationContext(), shapeList);
+        PlantAdapterSearchActivity adapter = new PlantAdapterSearchActivity(activity, shapeList);
         listView.setAdapter(adapter);
     }
 
@@ -309,4 +236,5 @@ public class SearchActivity extends AppCompatActivity
     {
         filterList("circle");
     }
+
 }

@@ -245,7 +245,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onResume() {
         super.onResume();
-       getWeatherAtCurrentLocation();
+//       getWeatherAtCurrentLocation();
     }
 
     @SuppressLint("MissingPermission")

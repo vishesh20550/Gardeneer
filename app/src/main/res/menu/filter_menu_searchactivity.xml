@@ -1,14 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/season_filter"
-        android:title="Season Wise" />
-    <item
-        android:id="@+id/zone_filter"
-        android:title="Zone Wise" />
-    <item
-        android:id="@+id/item_filter"
-        android:title="Item Type" />
-
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="Season Wise">
+        <menu>
+            <item
+                android:id="@+id/cold_season"
+                android:title="Cold Season" />
+            <item
+                android:id="@+id/warm_Season"
+                android:title="Warm Season" />
+        </menu>
+    </item>
+    <item android:title="Zone Wise">
+    <menu>
+            <item
+                android:id="@+id/east_zone"
+                android:title="East Zone" />
+            <item
+                android:id="@+id/west_zone"
+                android:title="West Zone" />
+            <item
+                android:id="@+id/north_zone"
+                android:title="North Zone" />
+            <item
+                android:id="@+id/south_zone"
+                android:title="South Zone" />
+            <item
+                android:id="@+id/central_zone"
+                android:title="Central Zone" />
+        </menu>
+    </item>
+    <item android:title="Item Type">
+        <menu>
+            <item
+                android:id="@+id/flower_item"
+                android:title="Flower" />
+            <item
+                android:id="@+id/fruitsandvegitables_item"
+                android:title="Fruits and vegetables" />
+            <item
+                android:id="@+id/herbs_item"
+                android:title="Herbs" />
+            <item
+                android:id="@+id/houseplant_item"
+                android:title="Houseplant" />
+        </menu>
+    </item>
 </menu>

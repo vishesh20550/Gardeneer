@@ -2,7 +2,6 @@ package com.example.gardneer;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,11 +9,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import android.util.Log;
 import java.util.ArrayList;
+
+//https://sheets.googleapis.com/v4/spreadsheets/1MpuSYBwdZQCcae4bgIFK_azQ1LnA-ahpA0EvF8aLsf0/values/Sheet1?alt=json&key=AIzaSyD-P_Sam9yUOlWAigZt4pSJidXwKKBZFKQ
 
 public class DetailActivity extends AppCompatActivity {
     PlantBasicDetails selectedShape;
@@ -31,6 +31,9 @@ public class DetailActivity extends AppCompatActivity {
     ArrayList<PlantBasicDetails> GoodNeighboursList;
     ArrayList<PlantBasicDetails> BadNeighboursList;
 
+    ArrayList<String> listdata;
+    ArrayList<String> plantData;
+
 //    1MpuSYBwdZQCcae4bgIFK_azQ1LnA-ahpA0EvF8aLsf0
 //    https://spreadsheets.google.com/feeds/list/1MpuSYBwdZQCcae4bgIFK_azQ1LnA-ahpA0EvF8aLsf0/od6/public/values?alt=json
     @Override
@@ -39,6 +42,8 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
         Intent previousIntent = getIntent();
         String parsedStringID = previousIntent.getStringExtra("id");
+        listdata = previousIntent.getStringArrayListExtra("listdata");
+        plantData = previousIntent.getStringArrayListExtra("plantData");
         selectedShape = getParsedShape(parsedStringID);
         plantNameTV = (TextView) findViewById(R.id.plantNameDetailActivity);
         plantImageTV = (ImageView) findViewById(R.id.plantImageDetailActivity);
@@ -68,6 +73,10 @@ public class DetailActivity extends AppCompatActivity {
     private void settingtext() {
         plantNameTV.setText(selectedShape.getName());
         plantImageTV.setImageResource(selectedShape.getImage());
+
+        if(plantData != null){
+            Log.i(selectedShape.getName(), String.valueOf(plantData));
+        }
 
 //        GerminationSeasonTV.setText();
 //        weatherTV.setText();

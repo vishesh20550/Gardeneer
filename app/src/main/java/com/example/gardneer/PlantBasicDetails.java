@@ -1,14 +1,13 @@
 package com.example.gardneer;
 import java.util.Comparator;
 
-class PlantBasicDetails
-{
+class PlantBasicDetails {
     private String id;
     private String name;
     private int image;
-//    private String item_type;
-//    private String zone_type;
-//    private String season_type;
+    private String item_type;
+    private String zone_type;
+    private String season_type;
 
     public PlantBasicDetails(String id, String name, int image) {
         this.id = id;
