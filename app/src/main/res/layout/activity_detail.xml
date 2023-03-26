@@ -184,12 +184,12 @@
                         android:layout_weight="0.47"
                         android:orientation="horizontal">
 
-                        <ImageView
+                       <ImageView
                             android:id="@+id/weeksIVDetailActivity"
                             android:layout_width="35dp"
                             android:layout_height="35dp"
                             android:scaleType="fitXY"
-                            android:src="@drawable/img_calendar"
+                            android:src="@drawable/time_clock_symbol"
                             tools:ignore="ContentDescription" />
 
                         <TextView

@@ -32,7 +32,6 @@
                         android:layout_gravity="center"
                         android:src="@drawable/logo"
                         android:contentDescription="@string/logo"
-
                         />
 
                     <TextView
@@ -167,6 +166,7 @@
                                         android:src="@drawable/img_videocamera" />
 
                                     <TextView
+                                        android:id="@+id/waterTV"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center_horizontal|bottom"
@@ -262,17 +262,19 @@
                                             android:scaleType="fitXY"
                                             android:src="@drawable/img_settings_amber_401"
                                             tools:ignore="ContentDescription"/>
-                                        <TextView android:ellipsize="end"
+
+                                        <TextView
                                             android:id="@+id/weatherTV"
+                                            android:layout_width="0dp"
                                             android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
                                             android:layout_marginStart="10dp"
                                             android:layout_weight="0.79"
-                                            android:layout_gravity="center"
+                                            android:ellipsize="end"
                                             android:gravity="center"
-                                            android:layout_width="0dp"
                                             android:singleLine="true"
-                                            android:textColor="@color/black"
-                                            android:text="Weather"/>
+                                            android:text="Weather"
+                                            android:textColor="@color/black" />
                                     </LinearLayout>
                                 </LinearLayout>
                                 <LinearLayout android:id="@+id/weeksMonthsLL"
@@ -294,7 +296,7 @@
                                             android:layout_height="35dp"
                                             android:layout_width="35dp"
                                             android:scaleType="fitXY"
-                                            android:src="@drawable/img_calendar"
+                                            android:src="@drawable/time_clock_symbol"
                                             tools:ignore="ContentDescription"/>
                                         <TextView android:ellipsize="end"
                                             android:id="@+id/weeksTV"

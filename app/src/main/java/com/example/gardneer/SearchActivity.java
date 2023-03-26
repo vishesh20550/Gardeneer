@@ -33,7 +33,7 @@ public class SearchActivity extends AppCompatActivity {
     public static int[] flower = {9,10,11,12};
     public static int[] herb = {13,14};
     public static int[] houseplant = {15,16};
-    public static int[] warm_weather = {0,7,8,9,10,11,13,14,15};
+    public static int[] warm_weather = {0,7,8,9,10,11,13,14,15,16};
     public static int[] cool_weather = {1,2,3,5,6,12};
     public static int[] perennial_weather = {4};
     public static int[] north_Zone = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};

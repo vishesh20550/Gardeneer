@@ -5,9 +5,6 @@ class PlantBasicDetails {
     private String id;
     private String name;
     private int image;
-    private String item_type;
-    private String zone_type;
-    private String season_type;
 
     public PlantBasicDetails(String id, String name, int image) {
         this.id = id;
@@ -64,6 +61,5 @@ class PlantBasicDetails {
             return name1.compareTo(name2);
         }
     };
-
 
 }
