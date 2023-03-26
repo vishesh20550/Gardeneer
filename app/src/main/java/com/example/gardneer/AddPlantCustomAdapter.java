@@ -16,9 +16,9 @@ import java.util.ArrayList;
 
 public class AddPlantCustomAdapter extends RecyclerView.Adapter<AddPlantCustomAdapter.ViewHolder>{
     private final Context context;
-    private final ArrayList<PlantInfo> plantInfos;
+    private final ArrayList<PlantBasicDetails> plantInfos;
 
-    public AddPlantCustomAdapter(Context context,ArrayList<PlantInfo> plantInfos) {
+    public AddPlantCustomAdapter(Context context,ArrayList<PlantBasicDetails> plantInfos) {
         this.context = context;
         this.plantInfos=plantInfos;
     }

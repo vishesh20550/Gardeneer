@@ -37,6 +37,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.gardneer.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
 
 import org.json.JSONArray;
@@ -67,24 +69,25 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     AlphaAnimation outAnimation;
     Toolbar toolbar;
     DrawerLayout drawerLayout;
+    BottomNavigationView bottomNavigationView;
     ActionBarDrawerToggle toggle;
     LocationManager locationManager;
     LocationListener locationListener;
     String[] urls;
     ExecutorService executor = Executors.newSingleThreadExecutor();
     Handler handler = new Handler(Looper.getMainLooper());
-    Toast toast;
     ImageButton btn_hamburger,btn_notification,addPlantButton;
     TextView dateWeatherTV,tempWeatherTV,maxMinTempTV,humidityTV;
     String temp,temp_min,temp_max,humidity;
     ImageView currentWeatherImageView;
-    ArrayList<PlantInfo> plantInfos = new ArrayList<>();
+    ArrayList<PlantBasicDetails> plantInfos = new ArrayList<>();
     public void initialize(){
         progressOverlay =findViewById(R.id.progress_overlay);
         inAnimation = new AlphaAnimation(0f, 1f);
         inAnimation.setDuration(200);
         outAnimation = new AlphaAnimation(1f, 0f);
         outAnimation.setDuration(200);
+        bottomNavigationView= findViewById(R.id.bottom_navigation);
         addPlantRecyclerView = findViewById(R.id.addPlantRecyclerView);
         addPlantButton =findViewById(R.id.addPlantButton);
         toolbar = findViewById(R.id.toolbar);
@@ -104,12 +107,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_home);
         initialize();
 //        btn_hamburger=findViewById(R.id.btn_hamburger);
-        for (int i =0 ; i<6;i++){
-            PlantInfo plantInfo = new PlantInfo();
-            plantInfo.name = "Plant"+i;
-            plantInfos.add(plantInfo);
-        }
-
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false);
         addPlantRecyclerView.setLayoutManager(linearLayoutManager);
         AddPlantCustomAdapter addPlantCustomAdapter= new AddPlantCustomAdapter(this,plantInfos);
@@ -128,6 +125,26 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState() ;
         NavigationView navigationView = findViewById(R.id.nav_view ) ;
         navigationView.setNavigationItemSelectedListener( this ) ;
+        bottomNavigationView.setSelectedItemId(R.id.myPlantsMenuItem);
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            int id =item.getItemId();
+            if (id == R.id.myPlantsMenuItem) {
+                Toast.makeText(HomeActivity.this, "My Plants Clicked", Toast.LENGTH_SHORT).show();
+                return true;
+            }else if (id == R.id.calendarMenuItems) {
+                Toast.makeText(HomeActivity.this, "Calendar Clicked", Toast.LENGTH_SHORT).show();
+                Intent goToCalendar = new Intent(HomeActivity.this, CalendarActivity.class);
+                startActivity(goToCalendar);
+                return true;
+            }else if (id == R.id.communityPostsMenuItem) {
+                Toast.makeText(HomeActivity.this, "Community Posts Clicked", Toast.LENGTH_SHORT).show();
+                return true;
+            }else if (id == R.id.tipsMenuItem) {
+                Toast.makeText(HomeActivity.this, "Tips Clicked", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+            return false;
+        });
     }
 
     @Override
@@ -245,7 +262,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onResume() {
         super.onResume();
-       getWeatherAtCurrentLocation();
+//       getWeatherAtCurrentLocation();
     }
 
     @SuppressLint("MissingPermission")
