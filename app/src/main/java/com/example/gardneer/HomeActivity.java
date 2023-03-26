@@ -147,12 +147,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    public void onBackPressed () {
+    public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout ) ;
         if (drawer.isDrawerOpen(GravityCompat.START )) {
             drawer.closeDrawer(GravityCompat.START ) ;
         } else {
-            super.onBackPressed() ;
+            finish();
         }
     }
     @Override
@@ -335,7 +335,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             String jsonString = (String) value;
             try {
                 JSONObject jsonObject = new JSONObject(jsonString);
-                String id = jsonObject.getString("id");
+                int id = jsonObject.getInt("id");
                 String name = jsonObject.getString("name");
                 int image = jsonObject.getInt("image");
                 String seed = jsonObject.getString("seed");

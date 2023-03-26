@@ -6,6 +6,10 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -14,8 +18,21 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -57,12 +74,11 @@ public class SearchActivity extends AppCompatActivity {
         onclicklisterners();
         settingFilter();
         setPlantData();
-        filteredplants = new ArrayList<>();
-        recyclerView = (RecyclerView) findViewById(R.id.shapesListView);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        PlantAdapterSearchActivity customAdapter = new PlantAdapterSearchActivity(activity, plantList);
-        recyclerView.setAdapter(customAdapter);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
+//        try {
+//            checkconnection();
+//        } catch (JSONException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 
     private void onclicklisterners() {
@@ -223,7 +239,7 @@ public class SearchActivity extends AppCompatActivity {
             filteredplants.clear();
             for(int i=0; i<array.length; i++) {
                 for(PlantBasicDetails plant : temp){
-                    if(plant.getId().equals(String.valueOf(array[i]))){
+                    if(plant.getId() == array[i]){
                         filteredplants.add(plant);
                     }
                 }
@@ -235,39 +251,154 @@ public class SearchActivity extends AppCompatActivity {
 
     private void setPlantData() {
         plantList = new ArrayList<PlantBasicDetails>();
-        PlantBasicDetails tomato = new PlantBasicDetails("0", "Tomato", R.drawable.toamto_foreground);
+        PlantBasicDetails tomato = new PlantBasicDetails(0, "Tomato", R.drawable.toamto_foreground);
         plantList.add(tomato);
-        PlantBasicDetails onion = new PlantBasicDetails("1", "Onion", R.drawable.onion_foreground);
+        PlantBasicDetails onion = new PlantBasicDetails(1, "Onion", R.drawable.onion_foreground);
         plantList.add(onion);
-        PlantBasicDetails potato = new PlantBasicDetails("2", "Potato", R.drawable.potato_foreground);
+        PlantBasicDetails potato = new PlantBasicDetails(2, "Potato", R.drawable.potato_foreground);
         plantList.add(potato);
-        PlantBasicDetails cabbage = new PlantBasicDetails("3", "Cabbage", R.drawable.cabbage_foreground);
+        PlantBasicDetails cabbage = new PlantBasicDetails(3, "Cabbage", R.drawable.cabbage_foreground);
         plantList.add(cabbage);
-        PlantBasicDetails lemon = new PlantBasicDetails("4", "Lemon", R.drawable.lemon_foreground);
+        PlantBasicDetails lemon = new PlantBasicDetails(4, "Lemon", R.drawable.lemon_foreground);
         plantList.add(lemon);
-        PlantBasicDetails spinach = new PlantBasicDetails("5", "Spinach", R.drawable.spinach_foreground);
+        PlantBasicDetails spinach = new PlantBasicDetails(5, "Spinach", R.drawable.spinach_foreground);
         plantList.add(spinach);
-        PlantBasicDetails pea = new PlantBasicDetails("6", "Pea", R.drawable.pea_foreground);
+        PlantBasicDetails pea = new PlantBasicDetails(6, "Pea", R.drawable.pea_foreground);
         plantList.add(pea);
-        PlantBasicDetails eggplant = new PlantBasicDetails("7", "Eggplant", R.drawable.eggplant_foreground);
+        PlantBasicDetails eggplant = new PlantBasicDetails(7, "Eggplant", R.drawable.eggplant_foreground);
         plantList.add(eggplant);
-        PlantBasicDetails watermenlon = new PlantBasicDetails("8", "Watermelon", R.drawable.watermelon_foreground);
+        PlantBasicDetails watermenlon = new PlantBasicDetails(8, "Watermelon", R.drawable.watermelon_foreground);
         plantList.add(watermenlon);
-        PlantBasicDetails marigold = new PlantBasicDetails("9", "Marigold", R.drawable.marigold_foreground);
+        PlantBasicDetails marigold = new PlantBasicDetails(9, "Marigold", R.drawable.marigold_foreground);
         plantList.add(marigold);
-        PlantBasicDetails sunflower = new PlantBasicDetails("10", "Sunflower", R.drawable.sunflower_foreground);
+        PlantBasicDetails sunflower = new PlantBasicDetails(10, "Sunflower", R.drawable.sunflower_foreground);
         plantList.add(sunflower);
-        PlantBasicDetails chamomile = new PlantBasicDetails("11", "Chamomile", R.drawable.chamomile_foreground);
+        PlantBasicDetails chamomile = new PlantBasicDetails(11, "Chamomile", R.drawable.chamomile_foreground);
         plantList.add(chamomile);
-        PlantBasicDetails rose = new PlantBasicDetails("12", "Rose", R.drawable.rose_foreground);
+        PlantBasicDetails rose = new PlantBasicDetails(12, "Rose", R.drawable.rose_foreground);
         plantList.add(rose);
-        PlantBasicDetails aloevera = new PlantBasicDetails("13", "Aloevera", R.drawable.aloevera_foreground);
+        PlantBasicDetails aloevera = new PlantBasicDetails(13, "Aloevera", R.drawable.aloevera_foreground);
         plantList.add(aloevera);
-        PlantBasicDetails tulsi = new PlantBasicDetails("14", "Tulsi", R.drawable.tulsi_foreground);
+        PlantBasicDetails tulsi = new PlantBasicDetails(14, "Tulsi", R.drawable.tulsi_foreground);
         plantList.add(tulsi);
-        PlantBasicDetails money_plant = new PlantBasicDetails("15", "Money plant", R.drawable.money_plant_foreground);
+        PlantBasicDetails money_plant = new PlantBasicDetails(15, "Money plant", R.drawable.money_plant_foreground);
         plantList.add(money_plant);
-        PlantBasicDetails spider_plants = new PlantBasicDetails("16", "Spider plants", R.drawable.spider_plants_foreground);
+        PlantBasicDetails spider_plants = new PlantBasicDetails(16, "Spider plants", R.drawable.spider_plants_foreground);
         plantList.add(spider_plants);
+        setRecyclerView();
     }
+
+    private void setRecyclerView(){
+        filteredplants = new ArrayList<>();
+        recyclerView = (RecyclerView) findViewById(R.id.shapesListView);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        PlantAdapterSearchActivity customAdapter = new PlantAdapterSearchActivity(activity, plantList);
+        recyclerView.setAdapter(customAdapter);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+    }
+
+    private void checkconnection() throws JSONException {
+        if(plantList ==null || plantList.size() == 0) {
+            ConnectivityManager connectivityManager = (ConnectivityManager) activity.getSystemService(activity.CONNECTIVITY_SERVICE);
+            NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+            if (networkInfo != null && networkInfo.isConnected()) {
+                // active internet connection download latest file
+                setPlantDataFromSheet2();
+            } else {
+                // No internet connection check buffer
+                SharedPreferences savejsonarray = activity.getSharedPreferences("savedJsonArray", MODE_PRIVATE);
+                if (savejsonarray.contains("JsonArray"))
+                    setPlantDataFromSheet1();
+                else {
+                    Toast.makeText(activity, "No Internet", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity, "Failed to Download Initial Files", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(activity,HomeActivity.class);
+                    activity.startActivity(intent);
+                }
+            }
+        }
+    }
+
+    private void setPlantDataFromSheet2() {
+        String url = "https://sheets.googleapis.com/v4/spreadsheets/1MpuSYBwdZQCcae4bgIFK_azQ1LnA-ahpA0EvF8aLsf0/values/Sheet1?alt=json&key=AIzaSyD-P_Sam9yUOlWAigZt4pSJidXwKKBZFKQ";
+        RequestQueue queue = Volley.newRequestQueue(activity);
+        plantList = new ArrayList<PlantBasicDetails>();
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONArray values = response.getJSONArray("values");
+                    if(values.length() != 0){
+                        SharedPreferences savejsonarray = activity.getSharedPreferences("savedJsonArray", MODE_PRIVATE);
+                        SharedPreferences.Editor myEdit1 = savejsonarray.edit();
+                        myEdit1.putString("JsonArray", values.toString());
+                        myEdit1.apply();
+                        setPlantDataFromSheet1();
+                        return;
+                    }
+                } catch (JSONException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // No network connection check if value exist in SharedPreferences
+                SharedPreferences savejsonarray = activity.getSharedPreferences("savedJsonArray", MODE_PRIVATE);
+                if (savejsonarray.contains("JsonArray")) {
+                    try {
+                        setPlantDataFromSheet1();
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+                else{
+                    Toast.makeText(activity, "No Internet", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity, "Failed to Download Initial Files", Toast.LENGTH_SHORT).show();;
+                    Intent intent = new Intent(activity,HomeActivity.class);
+                    activity.startActivity(intent);
+                }
+            }
+        });
+        queue.add(jsonObjectRequest);
+    }
+
+
+    private void setPlantDataFromSheet1() throws JSONException {
+        ArrayList<String> headerData = new ArrayList<>();
+        ArrayList<String> plantData = new ArrayList<>();
+        SharedPreferences savejsonarray = activity.getSharedPreferences("savedJsonArray", MODE_PRIVATE);
+        String jsonString = null;
+        Map<String, ?> saveJson = savejsonarray.getAll();
+        for (Map.Entry<String, ?> entry : saveJson.entrySet()) {
+            String key = entry.getKey();
+            Object value = entry.getValue();
+            if (key.equals("JsonArray"))
+                jsonString = (String) value;
+        }
+        JSONArray values = new JSONArray(jsonString);
+        if (values.length() != 0) {
+            JSONArray jArray = (JSONArray) values.get(0);
+            if (jArray != null) {
+                for (int i = 0; i < jArray.length(); i++) {
+                    headerData.add(jArray.getString(i));
+                }
+            }
+            for (int i = 1; i < values.length(); i++) {
+                JSONArray jsonArray = (JSONArray) values.get(i);
+                int plant_id = jsonArray.getInt(headerData.indexOf("id"));
+                String plant_name = jsonArray.getString(headerData.indexOf("plant_name"));
+                int plant_image = jsonArray.getInt(headerData.indexOf("image_id"));
+                PlantBasicDetails plant = new PlantBasicDetails(plant_id, plant_name, plant_image);
+                plantList.add(plant);
+            }
+            setRecyclerView();
+        }
+    }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(activity, HomeActivity.class);
+        activity.startActivity(intent);
+    }
+
 }

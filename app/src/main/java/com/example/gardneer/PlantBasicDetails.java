@@ -2,21 +2,21 @@ package com.example.gardneer;
 import java.util.Comparator;
 
 class PlantBasicDetails {
-    private String id;
+    private int id;
     private String name;
     private int image;
 
-    public PlantBasicDetails(String id, String name, int image) {
+    public PlantBasicDetails(int id, String name, int image) {
         this.id = id;
         this.name = name;
         this.image = image;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
