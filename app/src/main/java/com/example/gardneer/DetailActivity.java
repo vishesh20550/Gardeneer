@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.util.Log;
+
 import java.util.ArrayList;
 
 //https://sheets.googleapis.com/v4/spreadsheets/1MpuSYBwdZQCcae4bgIFK_azQ1LnA-ahpA0EvF8aLsf0/values/Sheet1?alt=json&key=AIzaSyD-P_Sam9yUOlWAigZt4pSJidXwKKBZFKQ
@@ -106,6 +106,9 @@ public class DetailActivity extends AppCompatActivity {
             if(plantData.get(headerData.indexOf("sprout_to_harvest")) != null){
                 SproutToHarvestTV.setText(plantData.get(headerData.indexOf("sprout_to_harvest")).trim());
             }
+            if(plantData.get(headerData.indexOf("planting_guide")) != null){
+                plantingGuideTV.setText(plantData.get(headerData.indexOf("planting_guide")).trim());
+            }
             if(plantData.get(headerData.indexOf("feeding")) != null){
                 feedingTV.setText(plantData.get(headerData.indexOf("feeding")).trim());
             }
@@ -115,7 +118,6 @@ public class DetailActivity extends AppCompatActivity {
         }
         else{
             Toast.makeText(this, "Opening In Minimalistic look", Toast.LENGTH_SHORT).show();
-
 //            String na =  "No-Data";
 //            GerminationSeasonTV.setText(na);
 //            weatherTV.setText(na);
@@ -137,7 +139,6 @@ public class DetailActivity extends AppCompatActivity {
         backButton.setOnClickListener(view -> {
             onBackPressed();
         });
-
         addToListButton.setOnClickListener(view -> {
             Toast.makeText(this,"Code to go to main screen and add this plant to list",Toast.LENGTH_SHORT).show();
         });
@@ -148,15 +149,30 @@ public class DetailActivity extends AppCompatActivity {
         BadNeighboursList = new ArrayList<>();
 
         if(plantData != null && headerData != null){
-            for (int i =0 ; i<4;i++){
-                PlantBasicDetails plant = new PlantBasicDetails(String.valueOf(i), "plant", R.drawable.circle_background);
+            String inputString = plantData.get(headerData.indexOf("good_neighbous")).trim();
+            if(!inputString.equals("NA")){
+                String[] stringArray = inputString.substring(1, inputString.length() - 1).split(", ");
+                for (int i =0 ; i < stringArray.length; i++){
+                    PlantBasicDetails plant = new PlantBasicDetails(String.valueOf(i), stringArray[i], R.drawable.circle_background);
+                    GoodNeighboursList.add(plant);
+                }
+            }
+            else{
+                PlantBasicDetails plant = new PlantBasicDetails("-1", "No known Goodd Plant", R.drawable.circle_background);
                 GoodNeighboursList.add(plant);
             }
-            for (int i =0 ; i<4;i++){
-                PlantBasicDetails plant = new PlantBasicDetails(String.valueOf(i), "plant", R.drawable.circle_background);
+            String inputString2 = plantData.get(headerData.indexOf("bad_neighbours")).trim();
+            if(!inputString.equals("NA")){
+                String[] stringArray = inputString2.substring(1, inputString2.length() - 1).split(", ");
+                for (int i =0 ; i < stringArray.length; i++){
+                    PlantBasicDetails plant = new PlantBasicDetails(String.valueOf(i), stringArray[i], R.drawable.circle_background);
+                    BadNeighboursList.add(plant);
+                }
+            }
+            else{
+                PlantBasicDetails plant = new PlantBasicDetails("-1", "No known Bad Plant", R.drawable.circle_background);
                 BadNeighboursList.add(plant);
             }
-
         }
         else {
             PlantBasicDetails plant = new PlantBasicDetails("-1", "No-Data", R.drawable.circle_background);
@@ -177,7 +193,7 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private PlantBasicDetails getParsedShape(String parsedID) {
-        for (PlantBasicDetails shape : SearchActivity.shapeList) {
+        for (PlantBasicDetails shape : SearchActivity.plantList) {
             if(shape.getId().equals(parsedID))
                 return shape;
         }
