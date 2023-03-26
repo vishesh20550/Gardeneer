@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
@@ -42,6 +43,7 @@ import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
@@ -58,6 +60,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -80,7 +83,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     TextView dateWeatherTV,tempWeatherTV,maxMinTempTV,humidityTV;
     String temp,temp_min,temp_max,humidity;
     ImageView currentWeatherImageView;
-    ArrayList<PlantBasicDetails> plantInfos = new ArrayList<>();
+    ArrayList<PlantInfoHomeClass> plantInfos;
     public void initialize(){
         progressOverlay =findViewById(R.id.progress_overlay);
         inAnimation = new AlphaAnimation(0f, 1f);
@@ -107,11 +110,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_home);
         initialize();
 //        btn_hamburger=findViewById(R.id.btn_hamburger);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false);
-        addPlantRecyclerView.setLayoutManager(linearLayoutManager);
-        AddPlantCustomAdapter addPlantCustomAdapter= new AddPlantCustomAdapter(this,plantInfos);
-        addPlantRecyclerView.setAdapter(addPlantCustomAdapter);
-        addPlantRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        SettingSavedList();
         addPlantButton.setOnClickListener(view -> {
             Intent i = new Intent(HomeActivity.this, SearchActivity.class);
             startActivity(i);
@@ -324,5 +323,51 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             locationManager.requestLocationUpdates(Location_Provider,5000,5000,locationListener);
         }
+    }
+
+    public void SettingSavedList(){
+        plantInfos = new ArrayList<>();
+        SharedPreferences savedPlants = this.getSharedPreferences("savedPlants", MODE_PRIVATE);
+        Map<String, ?> allPlantMap = savedPlants.getAll();
+        for (Map.Entry<String, ?> entry : allPlantMap.entrySet()) {
+            String key = entry.getKey();
+            Object value = entry.getValue();
+            String jsonString = (String) value;
+            try {
+                JSONObject jsonObject = new JSONObject(jsonString);
+                String id = jsonObject.getString("id");
+                String name = jsonObject.getString("name");
+                int image = jsonObject.getInt("image");
+                String seed = jsonObject.getString("seed");
+                String weather_requirement = jsonObject.getString("weather_requirement");
+                String sprout_to_harvest = jsonObject.getString("sprout_to_harvest");
+                String season = jsonObject.getString("season");
+                String water = jsonObject.getString("water");
+                PlantInfoHomeClass plant = new PlantInfoHomeClass(id, name, image, seed, weather_requirement, sprout_to_harvest, season, water);
+                plantInfos.add(plant);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false);
+        addPlantRecyclerView.setLayoutManager(linearLayoutManager);
+        AddPlantCustomAdapter addPlantCustomAdapter= new AddPlantCustomAdapter(this,plantInfos, 0);
+        addPlantRecyclerView.setAdapter(addPlantCustomAdapter);
+        addPlantRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        if(plantInfos.size() != 0){
+            PlantInfoHomeClass plant = plantInfos.get(0);
+            TextView waterTV = this.findViewById(R.id.waterTV);
+            waterTV.setText(plant.getWater());
+            TextView seasonTV = this.findViewById(R.id.seasonTV);
+            seasonTV.setText(plant.getSeed());
+            TextView weatherTV = this.findViewById(R.id.weatherTV);
+            weatherTV.setText(plant.getWeather_requirement());
+            TextView weeksTV = this.findViewById(R.id.weeksTV);
+            weeksTV.setText(plant.getSprout_to_harvest());
+            TextView monthsTV = this.findViewById(R.id.monthsTV);
+            monthsTV.setText(plant.getSeason());
+        }
+
     }
 }

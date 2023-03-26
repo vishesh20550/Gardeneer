@@ -45,11 +45,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         if (checkPermission(permissions)) {
             ActivityCompat.requestPermissions(this, permissions, 1);
+            Intent intent = new Intent(this,HomeActivity.class);
+            this.startActivity(intent);
         }
         else{
             Log.i("Permissions","Permitted");
             Intent intent= new Intent(this,HomeActivity.class);
             startActivity(intent);
         }
+
     }
 }
