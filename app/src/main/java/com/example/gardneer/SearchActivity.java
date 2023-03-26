@@ -11,7 +11,6 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -290,7 +289,7 @@ public class SearchActivity extends AppCompatActivity {
 
     private void setRecyclerView(){
         filteredplants = new ArrayList<>();
-        recyclerView = (RecyclerView) findViewById(R.id.shapesListView);
+        recyclerView = (RecyclerView) findViewById(R.id.plantRecycleVeiw);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         PlantAdapterSearchActivity customAdapter = new PlantAdapterSearchActivity(activity, plantList);
         recyclerView.setAdapter(customAdapter);

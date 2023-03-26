@@ -356,9 +356,9 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private PlantBasicDetails getParsedPlant(int parsedID) {
-        for (PlantBasicDetails shape : SearchActivity.plantList) {
-            if(shape.getId() == parsedID)
-                return shape;
+        for (PlantBasicDetails plant : SearchActivity.plantList) {
+            if(plant.getId() == parsedID)
+                return plant;
         }
         return null;
     }

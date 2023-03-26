@@ -39,10 +39,10 @@ class PlantBasicDetails {
     public static Comparator<PlantBasicDetails> idAscending = new Comparator<PlantBasicDetails>()
     {
         @Override
-        public int compare(PlantBasicDetails shape1, PlantBasicDetails shape2)
+        public int compare(PlantBasicDetails plant1, PlantBasicDetails plant2)
         {
-            int id1 = Integer.valueOf(shape1.getId());
-            int id2 = Integer.valueOf(shape2.getId());
+            int id1 = Integer.valueOf(plant1.getId());
+            int id2 = Integer.valueOf(plant2.getId());
 
             return Integer.compare(id1, id2);
         }
@@ -51,10 +51,10 @@ class PlantBasicDetails {
     public static Comparator<PlantBasicDetails> nameAscending = new Comparator<PlantBasicDetails>()
     {
         @Override
-        public int compare(PlantBasicDetails shape1, PlantBasicDetails shape2)
+        public int compare(PlantBasicDetails plant1, PlantBasicDetails plant2)
         {
-            String name1 = shape1.getName();
-            String name2 = shape2.getName();
+            String name1 = plant1.getName();
+            String name2 = plant2.getName();
             name1 = name1.toLowerCase();
             name2 = name2.toLowerCase();
 
