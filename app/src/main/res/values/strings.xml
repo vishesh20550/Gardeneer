@@ -40,5 +40,9 @@
     <string name="Text">text</string>
     <string name="Germination">Germination(in days): </string>
     <string name="SproutToHarvest">Sprout to harvest(in days): </string>
+    <string name="my_plants">My Plants</string>
+    <string name="calendar">Calendar</string>
+    <string name="community_posts">Community Posts</string>
+    <string name="tips">Tips</string>
     <string name="na">No-Data in local Cache</string>
 </resources>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/myPlantsMenuItem"
+        android:title="@string/my_plants"
+        android:enabled="true"
+        android:icon="@drawable/img_computer"/>
+    <item
+        android:id="@+id/calendarMenuItems"
+        android:title="@string/calendar"
+        android:enabled="true"
+        android:icon="@drawable/img_calendar"/>
+    <item
+        android:id="@+id/communityPostsMenuItem"
+        android:title="@string/community_posts"
+        android:enabled="true"
+        android:icon="@drawable/img_camera"/>
+    <item
+        android:id="@+id/tipsMenuItem"
+        android:title="@string/tips"
+        android:enabled="true"
+        android:icon="@drawable/img_lightbulb"/>
+</menu>
