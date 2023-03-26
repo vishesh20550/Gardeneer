@@ -1,12 +1,17 @@
 package com.example.gardneer;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -141,6 +146,30 @@ public class DetailActivity extends AppCompatActivity {
         });
         addToListButton.setOnClickListener(view -> {
             Toast.makeText(this,"Code to go to main screen and add this plant to list",Toast.LENGTH_SHORT).show();
+            LayoutInflater inflater = LayoutInflater.from(this);
+            View popupView = inflater.inflate(R.layout.popup_layout_detailactivity, null);
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setView(popupView);
+
+            Button add_more = popupView.findViewById(R.id.add_more_Detail_Activity);
+            add_more.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    // User clicked Button 1
+                }
+            });
+
+            Button back_to_menu = popupView.findViewById(R.id.back_to_menu_Detail_Activity);
+            back_to_menu.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    // User clicked Button 2
+                }
+            });
+
+// Show the AlertDialog
+            AlertDialog dialog = builder.create();
+            dialog.show();
+
         });
     }
 

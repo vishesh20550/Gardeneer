@@ -27,6 +27,21 @@ public class SearchActivity extends AppCompatActivity {
     private TextView backButton;
     private ImageView filterButton;
 
+    public static int[] fruit_and_vegetable = {0, 1, 2,3,4,5,6,7,8};
+    public static int[] flower = {9,10,11,12};
+    public static int[] herb = {13,14};
+    public static int[] houseplant = {15,16};
+    public static int[] warm_weather = {0,7,8,9,10,11,13,14,15};
+    public static int[] cool_weather = {1,2,3,5,6,12};
+    public static int[] perennial_weather = {4};
+    public static int[] north_Zone = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
+    public static int[] south_Zone = {0,1,2,4,5,6,7,8,9,10,12,13,14,15};
+    public static int[] east_Zone = {0,1,3,4,5,6,7,8,9,10,11,12,13,14,15};
+    public static int[] west_Zone = {0,1,4,5,7,9,10,12,13,14,15};
+    public static int[] central_Zone = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,8 +55,12 @@ public class SearchActivity extends AppCompatActivity {
 //        downloadFolderToCache("https://drive.google.com/file/d/1HtjAIh2gM51QOuviDjSiqPSBoXmPA-37/view?usp=sharing", "data1");
         onclicklisterners();
         initSearchWidgets();
-        setupData();
-        setUpList();
+        setPlantData();
+        listView = (RecyclerView) findViewById(R.id.shapesListView);
+        listView.setLayoutManager(new GridLayoutManager(this, 2));
+        PlantAdapterSearchActivity customAdapter = new PlantAdapterSearchActivity(activity, plantList);
+        listView.setAdapter(customAdapter);
+        listView.setItemAnimator(new DefaultItemAnimator());
     }
 
     private void onclicklisterners() {
@@ -55,10 +74,18 @@ public class SearchActivity extends AppCompatActivity {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
-                            case R.id.cold_season:
-                                // Handle sub-menu item one click
+                            case R.id.clear_filter:
+                                selectedFilter = "all";
+                                PlantAdapterSearchActivity adapter = new PlantAdapterSearchActivity(activity, plantList);
+                                listView.setAdapter(adapter);
+                                return true;
+                            case R.id.cool_season:
+                                cool_seasonHandler();
                                 return true;
                             case R.id.warm_Season:
+                                // Handle sub-menu item two click
+                                return true;
+                            case R.id.perennial_Season:
                                 // Handle sub-menu item two click
                                 return true;
                             case R.id.east_zone:
@@ -110,11 +137,9 @@ public class SearchActivity extends AppCompatActivity {
             }
 
             @Override
-            public boolean onQueryTextChange(String s)
-            {
+            public boolean onQueryTextChange(String s) {
                 currentSearchText = s;
-                ArrayList<PlantBasicDetails> filteredShapes = new ArrayList<PlantBasicDetails>();
-
+                ArrayList<PlantBasicDetails> filteredShapes = new ArrayList<>();
                 for(PlantBasicDetails shape: plantList) {
                     if(shape.getName().toLowerCase().contains(s.toLowerCase())) {
                         if(selectedFilter.equals("all")) {
@@ -129,13 +154,12 @@ public class SearchActivity extends AppCompatActivity {
                 }
                 PlantAdapterSearchActivity adapter = new PlantAdapterSearchActivity(activity,filteredShapes);
                 listView.setAdapter(adapter);
-
                 return false;
             }
         });
     }
 
-    private void setupData() {
+    private void setPlantData() {
         plantList = new ArrayList<PlantBasicDetails>();
         PlantBasicDetails tomato = new PlantBasicDetails("0", "Tomato", R.drawable.toamto_foreground);
         plantList.add(tomato);
@@ -171,89 +195,29 @@ public class SearchActivity extends AppCompatActivity {
         plantList.add(spider_plants);
     }
 
-//    private void downloadFolderToCache(String url, String folderName) {
-//        File cacheDir = getCacheDir();
-//        File folder = new File(cacheDir, folderName);
-////        if (!folder.exists()) {
-////            folder.mkdirs();
-////        }
-//        new Thread(() -> {
-//            try {
-//                URL folderUrl = new URL(url);
-//                URLConnection connection = folderUrl.openConnection();
-//                connection.connect();
-//                int response = ((HttpURLConnection) connection).getResponseCode();
-//                Log.i("AsyncTask", "The response is: " + response);
-//                switch (response) {
-//                    case 200:
-//                        Log.i("AsyncTask", "HTTP OK");
-//                        break;
-//                    case 201:
-//                        Log.i("AsyncTask", "HTTP CONNECTED");
-//                        break;
-//                    default:
-//                        Log.i("AsyncTask", ""+response);
-//
-//                }
-//                int fileSize = connection.getContentLength();
-//                InputStream input = new BufferedInputStream(folderUrl.openStream(), 8192);
-//                OutputStream output = new FileOutputStream(folder);
-//                byte[] data = new byte[1024];
-//                int total = 0;
-//                int count;
-//                while ((count = input.read(data)) != -1) {
-//                    total += count;
-//                    output.write(data, 0, count);
-//                }
-//                output.flush();
-//                output.close();
-//                input.close();
-//
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        }).start();
-//    }
 
-
-    private void setUpList() {
-        listView = (RecyclerView) findViewById(R.id.shapesListView);
-        listView.setLayoutManager(new GridLayoutManager(this, 2));
-        PlantAdapterSearchActivity customAdapter = new PlantAdapterSearchActivity(activity, plantList);
-        listView.setAdapter(customAdapter);
-        listView.setItemAnimator(new DefaultItemAnimator());
-    }
-
-
-    private void filterList(String status) {
-        selectedFilter = status;
+    private void filterList(int [] array) {
+        for(int i=0; i<array.length; i++ ) {
         ArrayList<PlantBasicDetails> filteredShapes = new ArrayList<PlantBasicDetails>();
 
-        for(PlantBasicDetails plant: plantList) {
-            if(plant.getName().toLowerCase().contains(status)) {
-                if(currentSearchText == "") {
-                    filteredShapes.add(plant);
-                }
-                else {
-                    if(plant.getName().toLowerCase().contains(currentSearchText.toLowerCase())){
-                        filteredShapes.add(plant);
-                    }
-                }
-            }
+//        for(PlantBasicDetails plant: plantList) {
+//            if(plant.getName().toLowerCase().contains(status)) {
+//                if(currentSearchText == "") {
+//                    filteredShapes.add(plant);
+//                }
+//                else {
+//                    if(plant.getName().toLowerCase().contains(currentSearchText.toLowerCase())){
+//                        filteredShapes.add(plant);
+//                    }
+//                }
+//            }
         }
 
         PlantAdapterSearchActivity adapter = new PlantAdapterSearchActivity(activity, filteredShapes);
         listView.setAdapter(adapter);
     }
 
-
-
-
-    public void allFilterTapped(View view) {
-        selectedFilter = "all";
-
-        PlantAdapterSearchActivity adapter = new PlantAdapterSearchActivity(activity, plantList);
-        listView.setAdapter(adapter);
+    private void cool_seasonHandler() {
     }
 
     public void triangleFilterTapped(View view)
