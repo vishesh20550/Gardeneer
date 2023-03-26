@@ -1,17 +1,18 @@
 package com.example.gardneer;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.app.Activity;
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.util.Log;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 import android.content.Intent;
-import android.view.animation.AlphaAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -30,16 +31,7 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import android.content.SharedPreferences;
 
 public class PlantAdapterSearchActivity extends RecyclerView.Adapter<PlantAdapterSearchActivity.ViewHolder>{
     private Activity activity;
@@ -88,11 +80,33 @@ public class PlantAdapterSearchActivity extends RecyclerView.Adapter<PlantAdapte
         });
 
         itemHolder.addbutton.setOnClickListener(view -> {
-            Toast.makeText(activity,"Add code to go the the main screen and add the plant",Toast.LENGTH_SHORT).show();
-//            Intent intent = new Intent(context,DetailActivity.class);
-//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-//            intent.putExtra("id", plant.getName());
-//            context.startActivity(intent);
+            // loading
+            SharedPreferences savedPlants = activity.getSharedPreferences("savedPlants", MODE_PRIVATE);
+            Map<String, ?> allPlantMap = savedPlants.getAll();
+            //checking if the id already exist or not
+            String id = plant.getId();
+            boolean flag = false;
+            for (Map.Entry<String, ?> entry : allPlantMap.entrySet()) {
+                String key = entry.getKey();
+                if(key.equals(id)){
+                    flag = true;
+                }
+            }
+            if(flag == false){
+                //If not then add it to the SharedPreferences
+                SharedPreferences.Editor myEdit = savedPlants.edit();
+                myEdit.putInt(String.valueOf(id), Integer.parseInt(id));
+                myEdit.apply();
+            }
+            else{
+                // else show toast that it was already saved
+                Toast.makeText(activity, "Plant Already Added", Toast.LENGTH_SHORT).show();
+            }
+            // Clear top of the intent and go to the Homeactivity
+            Intent intent = new Intent(activity,HomeActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+            intent.putExtra("id", plant.getName());
+            activity.startActivity(intent);
         });
     }
 
@@ -136,6 +150,16 @@ public class PlantAdapterSearchActivity extends RecyclerView.Adapter<PlantAdapte
                         }
                         if(flag == 0){
                             Toast.makeText(activity, "No hit on Dataset", Toast.LENGTH_SHORT).show();
+//                            @Override
+//                            public void onBackPressed() {
+//                                // Create an Intent to start the new activity
+//                                Intent intent = new Intent(this, NewActivity.class);
+//                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+//
+//                                // Start the new activity and remove the current activity from the stack
+//                                startActivity(intent);
+//                                finish();
+//                            }
                         }
                     }
                 } catch (JSONException e) {

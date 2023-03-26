@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -20,9 +21,10 @@ public class SearchActivity extends AppCompatActivity {
 
     public static ArrayList<PlantBasicDetails> plantList;
     Activity activity;
-    private RecyclerView listView;
-    private String selectedFilter = "all";
-    private String currentSearchText = "";
+    private String Filtertype = "all";
+    ArrayList<PlantBasicDetails> filteredplants;
+    private RecyclerView recyclerView;
+
     private SearchView searchView;
     private TextView backButton;
     private ImageView filterButton;
@@ -39,6 +41,9 @@ public class SearchActivity extends AppCompatActivity {
     public static int[] east_Zone = {0,1,3,4,5,6,7,8,9,10,11,12,13,14,15};
     public static int[] west_Zone = {0,1,4,5,7,9,10,12,13,14,15};
     public static int[] central_Zone = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
+    boolean season_filter = false;
+    boolean zone_filter = false;
+    boolean item_filter = false;
 
 
 
@@ -46,24 +51,24 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        activity = this;
         backButton = findViewById(R.id.backbutton_searchactivity);
         filterButton = findViewById(R.id.FilterSearchActivity);
-        activity = this;
-        backButton.setOnClickListener(view -> {
-            onBackPressed();
-        });
-//        downloadFolderToCache("https://drive.google.com/file/d/1HtjAIh2gM51QOuviDjSiqPSBoXmPA-37/view?usp=sharing", "data1");
         onclicklisterners();
-        initSearchWidgets();
+        settingFilter();
         setPlantData();
-        listView = (RecyclerView) findViewById(R.id.shapesListView);
-        listView.setLayoutManager(new GridLayoutManager(this, 2));
+        filteredplants = new ArrayList<>();
+        recyclerView = (RecyclerView) findViewById(R.id.shapesListView);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         PlantAdapterSearchActivity customAdapter = new PlantAdapterSearchActivity(activity, plantList);
-        listView.setAdapter(customAdapter);
-        listView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(customAdapter);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
     }
 
     private void onclicklisterners() {
+        backButton.setOnClickListener(view -> {
+            onBackPressed();
+        });
         filterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,45 +80,70 @@ public class SearchActivity extends AppCompatActivity {
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.clear_filter:
-                                selectedFilter = "all";
+                                Filtertype = "all";
+                                filteredplants.clear();
                                 PlantAdapterSearchActivity adapter = new PlantAdapterSearchActivity(activity, plantList);
-                                listView.setAdapter(adapter);
+                                recyclerView.setAdapter(adapter);
                                 return true;
                             case R.id.cool_season:
-                                cool_seasonHandler();
+                                Filtertype = "season";
+                                filterList(cool_weather);
+                                season_filter = true;
                                 return true;
                             case R.id.warm_Season:
-                                // Handle sub-menu item two click
+                                Filtertype = "season";
+                                filterList(warm_weather);
+                                season_filter = true;
                                 return true;
                             case R.id.perennial_Season:
-                                // Handle sub-menu item two click
+                                Filtertype = "season";
+                                filterList(perennial_weather);
+                                season_filter = true;
                                 return true;
                             case R.id.east_zone:
-                                // Handle sub-menu item one click
+                                Filtertype = "zone";
+                                filterList(east_Zone);
+                                zone_filter = true;
                                 return true;
                             case R.id.west_zone:
-                                // Handle sub-menu item two click
+                                Filtertype = "zone";
+                                filterList(west_Zone);
+                                zone_filter = true;
                                 return true;
                             case R.id.north_zone:
-                                // Handle sub-menu item two click
+                                Filtertype = "zone";
+                                filterList(north_Zone);
+                                zone_filter = true;
                                 return true;
                             case R.id.south_zone:
-                                // Handle sub-menu item two click
+                                Filtertype = "zone";
+                                filterList(south_Zone);
+                                zone_filter = true;
                                 return true;
                             case R.id.central_zone:
-                                // Handle sub-menu item two click
+                                Filtertype = "zone";
+                                filterList(central_Zone);
+                                zone_filter = true;
                                 return true;
                             case R.id.flower_item:
-                                // Handle sub-menu item one click
+                                Filtertype = "item";
+                                filterList(flower);
+                                item_filter = true;
                                 return true;
                             case R.id.fruitsandvegitables_item:
-                                // Handle sub-menu item two click
+                                Filtertype = "item";
+                                filterList(fruit_and_vegetable);
+                                item_filter = true;
                                 return true;
                             case R.id.herbs_item:
-                                // Handle sub-menu item two click
+                                Filtertype = "item";
+                                filterList(herb);
+                                item_filter = true;
                                 return true;
                             case R.id.houseplant_item:
-                                // Handle sub-menu item two click
+                                Filtertype = "item";
+                                filterList(houseplant);
+                                item_filter = true;
                                 return true;
                             default:
                                 return false;
@@ -127,8 +157,8 @@ public class SearchActivity extends AppCompatActivity {
     }
 
 
-    private void initSearchWidgets() {
-        searchView = (SearchView)findViewById(R.id.shapeListSearchView);
+    private void settingFilter() {
+        searchView = (SearchView)findViewById(R.id.plantListSearchView);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -138,25 +168,69 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String s) {
-                currentSearchText = s;
-                ArrayList<PlantBasicDetails> filteredShapes = new ArrayList<>();
-                for(PlantBasicDetails shape: plantList) {
-                    if(shape.getName().toLowerCase().contains(s.toLowerCase())) {
-                        if(selectedFilter.equals("all")) {
-                            filteredShapes.add(shape);
-                        }
-                        else {
-                            if(shape.getName().toLowerCase().contains(selectedFilter)) {
-                                filteredShapes.add(shape);
-                            }
+                ArrayList<PlantBasicDetails> plantListFilter = new ArrayList<>();
+                if(Filtertype.equals("all")) {
+                    for(PlantBasicDetails plant: plantList) {
+                        if (plant.getName().toLowerCase().contains(s.toLowerCase())) {
+                            plantListFilter.add(plant);
                         }
                     }
                 }
-                PlantAdapterSearchActivity adapter = new PlantAdapterSearchActivity(activity,filteredShapes);
-                listView.setAdapter(adapter);
+                else{
+                    for(PlantBasicDetails plant: filteredplants) {
+                        if (plant.getName().toLowerCase().contains(s.toLowerCase())) {
+                            plantListFilter.add(plant);
+                        }
+                    }
+                }
+                PlantAdapterSearchActivity adapter = new PlantAdapterSearchActivity(activity,plantListFilter);
+                recyclerView.setAdapter(adapter);
                 return false;
             }
         });
+    }
+
+    private void filterList(int [] array) {
+        if(Filtertype.equals("season") && season_filter) {
+            filteredplants.clear();
+            season_filter = false;
+            for(int i=0; i<array.length; i++) {
+                filteredplants.add(plantList.get(array[i]));
+            }
+        }
+        else if(Filtertype.equals("zone") && zone_filter) {
+            filteredplants.clear();
+            zone_filter = false;
+            for(int i=0; i<array.length; i++) {
+                filteredplants.add(plantList.get(array[i]));
+            }
+        }
+        else if(Filtertype.equals("item") && item_filter) {
+            filteredplants.clear();
+            item_filter = false;
+            for(int i=0; i<array.length; i++) {
+                filteredplants.add(plantList.get(array[i]));
+            }
+        }
+        else{
+            ArrayList<PlantBasicDetails> temp;
+            if(filteredplants.size() == 0){
+                temp = plantList;
+            }
+            else{
+                temp = (ArrayList<PlantBasicDetails>) filteredplants.clone();
+            }
+            filteredplants.clear();
+            for(int i=0; i<array.length; i++) {
+                for(PlantBasicDetails plant : temp){
+                    if(plant.getId().equals(String.valueOf(array[i]))){
+                        filteredplants.add(plant);
+                    }
+                }
+            }
+        }
+        PlantAdapterSearchActivity adapter = new PlantAdapterSearchActivity(activity, filteredplants);
+        recyclerView.setAdapter(adapter);
     }
 
     private void setPlantData() {
@@ -167,16 +241,18 @@ public class SearchActivity extends AppCompatActivity {
         plantList.add(onion);
         PlantBasicDetails potato = new PlantBasicDetails("2", "Potato", R.drawable.potato_foreground);
         plantList.add(potato);
-        PlantBasicDetails cabbage = new PlantBasicDetails("4", "Cabbage", R.drawable.cabbage_foreground);
+        PlantBasicDetails cabbage = new PlantBasicDetails("3", "Cabbage", R.drawable.cabbage_foreground);
         plantList.add(cabbage);
-        PlantBasicDetails lemon = new PlantBasicDetails("5", "Lemon", R.drawable.lemon_foreground);
+        PlantBasicDetails lemon = new PlantBasicDetails("4", "Lemon", R.drawable.lemon_foreground);
         plantList.add(lemon);
-        PlantBasicDetails spinach = new PlantBasicDetails("6", "Spinach", R.drawable.spinach_foreground);
+        PlantBasicDetails spinach = new PlantBasicDetails("5", "Spinach", R.drawable.spinach_foreground);
         plantList.add(spinach);
-        PlantBasicDetails pea = new PlantBasicDetails("7", "Pea", R.drawable.pea_foreground);
+        PlantBasicDetails pea = new PlantBasicDetails("6", "Pea", R.drawable.pea_foreground);
         plantList.add(pea);
-        PlantBasicDetails eggplant = new PlantBasicDetails("8", "Eggplant", R.drawable.eggplant_foreground);
+        PlantBasicDetails eggplant = new PlantBasicDetails("7", "Eggplant", R.drawable.eggplant_foreground);
         plantList.add(eggplant);
+        PlantBasicDetails watermenlon = new PlantBasicDetails("8", "Watermelon", R.drawable.watermelon_foreground);
+        plantList.add(watermenlon);
         PlantBasicDetails marigold = new PlantBasicDetails("9", "Marigold", R.drawable.marigold_foreground);
         plantList.add(marigold);
         PlantBasicDetails sunflower = new PlantBasicDetails("10", "Sunflower", R.drawable.sunflower_foreground);
@@ -194,55 +270,4 @@ public class SearchActivity extends AppCompatActivity {
         PlantBasicDetails spider_plants = new PlantBasicDetails("16", "Spider plants", R.drawable.spider_plants_foreground);
         plantList.add(spider_plants);
     }
-
-
-    private void filterList(int [] array) {
-        for(int i=0; i<array.length; i++ ) {
-        ArrayList<PlantBasicDetails> filteredShapes = new ArrayList<PlantBasicDetails>();
-
-//        for(PlantBasicDetails plant: plantList) {
-//            if(plant.getName().toLowerCase().contains(status)) {
-//                if(currentSearchText == "") {
-//                    filteredShapes.add(plant);
-//                }
-//                else {
-//                    if(plant.getName().toLowerCase().contains(currentSearchText.toLowerCase())){
-//                        filteredShapes.add(plant);
-//                    }
-//                }
-//            }
-        }
-
-        PlantAdapterSearchActivity adapter = new PlantAdapterSearchActivity(activity, filteredShapes);
-        listView.setAdapter(adapter);
-    }
-
-    private void cool_seasonHandler() {
-    }
-
-    public void triangleFilterTapped(View view)
-    {
-        filterList("triangle");
-    }
-
-    public void squareFilterTapped(View view)
-    {
-        filterList("square");
-    }
-
-    public void octagonFilterTapped(View view)
-    {
-        filterList("octagon");
-    }
-
-    public void rectangleFilterTapped(View view)
-    {
-        filterList("rectangle");
-    }
-
-    public void circleFilterTapped(View view)
-    {
-        filterList("circle");
-    }
-
 }
