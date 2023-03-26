@@ -18,7 +18,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:elevation="4dp"
-                android:padding="10dp"
+                android:padding="7dp"
                 app:contentInsetLeft="0dp"
                 app:contentInsetStart="0dp">
                 <LinearLayout
