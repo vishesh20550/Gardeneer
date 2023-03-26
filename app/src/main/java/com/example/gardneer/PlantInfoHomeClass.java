@@ -3,7 +3,7 @@ package com.example.gardneer;
 import java.util.Comparator;
 
 public class PlantInfoHomeClass {
-    private String id;
+    private int id;
     private String name;
     private int image;
     private String seed;
@@ -12,7 +12,7 @@ public class PlantInfoHomeClass {
     private String season;
     private String water;
 
-    public PlantInfoHomeClass(String id, String name, int image, String seed, String weather_requirement, String sprout_to_harvest, String season, String water) {
+    public PlantInfoHomeClass(int id, String name, int image, String seed, String weather_requirement, String sprout_to_harvest, String season, String water) {
         this.id = id;
         this.name = name;
         this.image = image;
@@ -23,11 +23,11 @@ public class PlantInfoHomeClass {
         this.water = water;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

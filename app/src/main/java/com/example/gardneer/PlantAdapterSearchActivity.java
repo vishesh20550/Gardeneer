@@ -17,12 +17,14 @@ import java.util.List;
 import java.util.Map;
 
 import android.content.Intent;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
@@ -108,11 +110,10 @@ public class PlantAdapterSearchActivity extends RecyclerView.Adapter<PlantAdapte
             if (savejsonarray.contains("JsonArray"))
                 getDataFromSheet1(plant_name, plant);
             else{
+                Toast.makeText(activity, "Fail to get data\nCheck NetworkConnection", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(activity,DetailActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
                 intent.putExtra("id", plant.getId());
                 activity.startActivity(intent);
-                Toast.makeText(activity, "Fail to get data\nCheck NetworkConnection", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -124,8 +125,6 @@ public class PlantAdapterSearchActivity extends RecyclerView.Adapter<PlantAdapte
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    ArrayList<String> headerData = new ArrayList<>();
-                    ArrayList<String> plantData = new ArrayList<>();
                     int flag = 0;
                     JSONArray values = response.getJSONArray("values");
                     if(values.length() != 0){
@@ -153,11 +152,10 @@ public class PlantAdapterSearchActivity extends RecyclerView.Adapter<PlantAdapte
                     }
                 }
                 else{
+                    Toast.makeText(activity, "Fail to get data\nCheck NetworkConnection", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(activity,DetailActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
                     intent.putExtra("id", plant.getId());
                     activity.startActivity(intent);
-                    Toast.makeText(activity, "Fail to get data\nCheck NetworkConnection", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -193,7 +191,6 @@ public class PlantAdapterSearchActivity extends RecyclerView.Adapter<PlantAdapte
                         plantData.add(jsonArray.getString(j));
                     }
                     Intent intent = new Intent(activity,DetailActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
                     intent.putExtra("id", plant.getId());
                     intent.putExtra("plantData", plantData);
                     intent.putExtra("headerData", headerData);
@@ -219,7 +216,7 @@ public class PlantAdapterSearchActivity extends RecyclerView.Adapter<PlantAdapte
             if (savejsonarray.contains("JsonArray"))
                 getDataFromSheetForSaving1(plant_name, plant);
             else
-                Toast.makeText(activity, "Cannot add. Fail to get data\nCheck NetworkConnection", Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity, "Data not available\nCheck NetworkConnection", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -231,9 +228,6 @@ public class PlantAdapterSearchActivity extends RecyclerView.Adapter<PlantAdapte
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    ArrayList<String> headerData = new ArrayList<>();
-                    ArrayList<String> plantData = new ArrayList<>();
-                    int flag = 0;
                     JSONArray values = response.getJSONArray("values");
                     if(values.length() != 0){
                         SharedPreferences savejsonarray = activity.getSharedPreferences("savedJsonArray", MODE_PRIVATE);
@@ -322,7 +316,7 @@ public class PlantAdapterSearchActivity extends RecyclerView.Adapter<PlantAdapte
                     SharedPreferences savedPlants = activity.getSharedPreferences("savedPlants", MODE_PRIVATE);
                     Map<String, ?> allPlantMap = savedPlants.getAll();
                     //checking if the id already exist or not
-                    String id = plant.getId();
+                    String id = String.valueOf(plant.getId());
                     boolean flag1 = false;
                     for (Map.Entry<String, ?> entry : allPlantMap.entrySet()) {
                         String key = entry.getKey();
@@ -339,9 +333,7 @@ public class PlantAdapterSearchActivity extends RecyclerView.Adapter<PlantAdapte
                         // else show toast that it was already saved
                         Toast.makeText(activity, "Plant Already Added", Toast.LENGTH_SHORT).show();
                     }
-                    // Clear top of the intent and go to the HomeActivity
                     Intent intent = new Intent(activity, HomeActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.putExtra("id", plant.getName());
                     activity.startActivity(intent);
                     break;
@@ -351,6 +343,32 @@ public class PlantAdapterSearchActivity extends RecyclerView.Adapter<PlantAdapte
                 Toast.makeText(activity, "No hit on Dataset", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    public void popup(){
+        LayoutInflater inflater = LayoutInflater.from(activity);
+        View popupView = inflater.inflate(R.layout.popup_layout_detailactivity, null);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setView(popupView);
+
+        Button add_more = popupView.findViewById(R.id.add_more_Detail_Activity);
+        add_more.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(activity, SearchActivity.class);
+                activity.startActivity(intent);
+            }
+        });
+
+        Button back_to_menu = popupView.findViewById(R.id.back_to_menu_Detail_Activity);
+        back_to_menu.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(activity, HomeActivity.class);
+                activity.startActivity(intent);
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }
 

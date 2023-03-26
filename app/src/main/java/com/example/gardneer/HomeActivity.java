@@ -147,18 +147,28 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    public void onBackPressed () {
+    public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout ) ;
         if (drawer.isDrawerOpen(GravityCompat.START )) {
             drawer.closeDrawer(GravityCompat.START ) ;
         } else {
-            super.onBackPressed() ;
+            finish();
         }
     }
     @Override
     public boolean onCreateOptionsMenu (Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.navigation_menu , menu) ;
+        getMenuInflater().inflate(R.menu.navigation_menu , menu);
+//        MenuItem menuItem = menu.findItem(R.id.nav_about_us);
+//        menuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem item) {
+//                Toast.makeText(getApplicationContext(), "here", Toast.LENGTH_SHORT).show();
+//                Intent i = new Intent(HomeActivity.this, AboutUsActivity.class);
+//                startActivity(i);
+//                return true;
+//            }
+//        });
         return true;
     }
     @Override
@@ -335,7 +345,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             String jsonString = (String) value;
             try {
                 JSONObject jsonObject = new JSONObject(jsonString);
-                String id = jsonObject.getString("id");
+                int id = jsonObject.getInt("id");
                 String name = jsonObject.getString("name");
                 int image = jsonObject.getInt("image");
                 String seed = jsonObject.getString("seed");
