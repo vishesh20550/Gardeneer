@@ -137,9 +137,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 return true;
             }else if (id == R.id.communityPostsMenuItem) {
                 Toast.makeText(HomeActivity.this, "Community Posts Clicked", Toast.LENGTH_SHORT).show();
+                Intent goToCommunitypost = new Intent(HomeActivity.this, CommunityPostActivity.class);
+                startActivity(goToCommunitypost);
                 return true;
             }else if (id == R.id.tipsMenuItem) {
                 Toast.makeText(HomeActivity.this, "Tips Clicked", Toast.LENGTH_SHORT).show();
+                Intent goToTips = new Intent(HomeActivity.this, TipsActivity.class);
+                startActivity(goToTips);
                 return true;
             }
             return false;
