@@ -12,7 +12,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-    String[] permissions = new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION};
+    String[] permissions = new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.WRITE_CALENDAR,Manifest.permission.READ_CALENDAR, Manifest.permission.INTERNET,Manifest.permission.ACCESS_NETWORK_STATE};
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == 1) {
@@ -45,14 +45,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         if (checkPermission(permissions)) {
             ActivityCompat.requestPermissions(this, permissions, 1);
-            Intent intent = new Intent(this,HomeActivity.class);
-            this.startActivity(intent);
         }
         else{
             Log.i("Permissions","Permitted");
             Intent intent= new Intent(this,HomeActivity.class);
             startActivity(intent);
         }
-
     }
 }
