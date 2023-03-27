@@ -6,8 +6,10 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,12 +19,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.Map;
 
 //https://sheets.googleapis.com/v4/spreadsheets/1MpuSYBwdZQCcae4bgIFK_azQ1LnA-ahpA0EvF8aLsf0/values/Sheet1?alt=json&key=AIzaSyD-P_Sam9yUOlWAigZt4pSJidXwKKBZFKQ
 
 public class DetailActivity extends AppCompatActivity {
-    PlantBasicDetails selectedShape;
+    PlantBasicDetails selectedPlant;
     TextView backButton;
     TextView plantNameTV, plantScientificName;
     ImageView plantImageTV;
@@ -39,6 +45,8 @@ public class DetailActivity extends AppCompatActivity {
     ArrayList<String> headerData;
     ArrayList<String> plantData;
 
+    Activity activity;
+
 //    1MpuSYBwdZQCcae4bgIFK_azQ1LnA-ahpA0EvF8aLsf0
 //    https://spreadsheets.google.com/feeds/list/1MpuSYBwdZQCcae4bgIFK_azQ1LnA-ahpA0EvF8aLsf0/od6/public/values?alt=json
     @Override
@@ -46,10 +54,11 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         Intent previousIntent = getIntent();
-        String parsedStringID = previousIntent.getStringExtra("id");
+        activity = this;
+        int id = previousIntent.getIntExtra("id", -1);
         headerData = previousIntent.getStringArrayListExtra("headerData");
         plantData = previousIntent.getStringArrayListExtra("plantData");
-        selectedShape = getParsedShape(parsedStringID);
+        selectedPlant = getParsedPlant(id);
         plantNameTV = (TextView) findViewById(R.id.plantNameDetailActivity);
         plantScientificName = (TextView) findViewById(R.id.plantScientificNameDetailActivity);
         plantImageTV = (ImageView) findViewById(R.id.plantImageDetailActivity);
@@ -77,8 +86,8 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void settingtext() {
-        plantNameTV.setText(selectedShape.getName());
-        plantImageTV.setImageResource(selectedShape.getImage());
+        plantNameTV.setText(selectedPlant.getName());
+        plantImageTV.setImageResource(selectedPlant.getImage());
 
         if(plantData != null && headerData != null){
             if(plantData.get(headerData.indexOf("scientific_name")) != null){
@@ -145,30 +154,155 @@ public class DetailActivity extends AppCompatActivity {
             onBackPressed();
         });
         addToListButton.setOnClickListener(view -> {
-            Toast.makeText(this,"Code to go to main screen and add this plant to list",Toast.LENGTH_SHORT).show();
             LayoutInflater inflater = LayoutInflater.from(this);
             View popupView = inflater.inflate(R.layout.popup_layout_detailactivity, null);
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this,R.style.CustomAlertDialog);
             AlertDialog alertDialog= builder.create();
             builder.setView(popupView);
-
+            AlertDialog dialog = builder.create();
             Button add_more = popupView.findViewById(R.id.add_more_Detail_Activity);
             add_more.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    // User clicked Button 1
+                    if(plantData != null && headerData != null){
+                        try{
+                            JSONObject plantDataToSave = new JSONObject();
+                            plantDataToSave.put("id", selectedPlant.getId());
+                            plantDataToSave.put("name", selectedPlant.getName());
+                            plantDataToSave.put("image", selectedPlant.getImage());
+                            if (plantData.get(headerData.indexOf("seed")) != null) {
+                                plantDataToSave.put("seed", plantData.get(headerData.indexOf("seed")).trim());
+                            } else {
+                                plantDataToSave.put("seed", "NA");
+                            }
+                            if (plantData.get(headerData.indexOf("weather_requirement")) != null) {
+                                plantDataToSave.put("weather_requirement", plantData.get(headerData.indexOf("weather_requirement")).trim());
+                            } else {
+                                plantDataToSave.put("weather_requirement", "NA");
+                            }
+                            if (plantData.get(headerData.indexOf("sprout_to_harvest")) != null) {
+                                plantDataToSave.put("sprout_to_harvest", plantData.get(headerData.indexOf("sprout_to_harvest")).trim());
+                            } else {
+                                plantDataToSave.put("sprout_to_harvest", "NA");
+                            }
+                            if (plantData.get(headerData.indexOf("season")) != null) {
+                                plantDataToSave.put("season", plantData.get(headerData.indexOf("season")).trim());
+                            } else {
+                                plantDataToSave.put("season", "NA");
+                            }
+                            if (plantData.get(headerData.indexOf("water")) != null) {
+                                plantDataToSave.put("water", plantData.get(headerData.indexOf("water")).trim());
+                            } else {
+                                plantDataToSave.put("water", "NA");
+                            }
+                            SharedPreferences savedPlants = getSharedPreferences("savedPlants", MODE_PRIVATE);
+                            Map<String, ?> allPlantMap = savedPlants.getAll();
+                            //checking if the id already exist or not
+                            String id = String.valueOf(selectedPlant.getId());
+                            boolean flag1 = false;
+                            for (Map.Entry<String, ?> entry : allPlantMap.entrySet()) {
+                                String key = entry.getKey();
+                                if (key.equals(id)) {
+                                    flag1 = true;
+                                }
+                            }
+                            if (flag1 == false) {
+                                //If not then add it to the SharedPreferences
+                                SharedPreferences.Editor myEdit = savedPlants.edit();
+                                myEdit.putString(String.valueOf(id), plantDataToSave.toString());
+                                myEdit.apply();
+                            } else {
+                                // else show toast that it was already saved
+                                Toast.makeText(activity, "Plant Already Added", Toast.LENGTH_SHORT).show();
+                            }
+                            // Clear top of the intent and go to the HomeActivity
+                            Intent intent = new Intent(activity, SearchActivity.class);
+                            dialog.dismiss();
+                            activity.startActivity(intent);
+                        }catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                    else{
+                        Toast.makeText(activity,"Data not available\nCheck NetworkConnection", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(activity, SearchActivity.class);
+                        dialog.dismiss();
+                        activity.startActivity(intent);
+                    }
                 }
             });
 
             Button back_to_menu = popupView.findViewById(R.id.back_to_menu_Detail_Activity);
             back_to_menu.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    // User clicked Button 2
+                    if(plantData != null && headerData != null) {
+                        try{
+                            JSONObject plantDataToSave = new JSONObject();
+                            plantDataToSave.put("id", selectedPlant.getId());
+                            plantDataToSave.put("name", selectedPlant.getName());
+                            plantDataToSave.put("image", selectedPlant.getImage());
+                            if (plantData.get(headerData.indexOf("seed")) != null) {
+                                plantDataToSave.put("seed", plantData.get(headerData.indexOf("seed")).trim());
+                            } else {
+                                plantDataToSave.put("seed", "NA");
+                            }
+                            if (plantData.get(headerData.indexOf("weather_requirement")) != null) {
+                                plantDataToSave.put("weather_requirement", plantData.get(headerData.indexOf("weather_requirement")).trim());
+                            } else {
+                                plantDataToSave.put("weather_requirement", "NA");
+                            }
+                            if (plantData.get(headerData.indexOf("sprout_to_harvest")) != null) {
+                                plantDataToSave.put("sprout_to_harvest", plantData.get(headerData.indexOf("sprout_to_harvest")).trim());
+                            } else {
+                                plantDataToSave.put("sprout_to_harvest", "NA");
+                            }
+                            if (plantData.get(headerData.indexOf("season")) != null) {
+                                plantDataToSave.put("season", plantData.get(headerData.indexOf("season")).trim());
+                            } else {
+                                plantDataToSave.put("season", "NA");
+                            }
+                            if (plantData.get(headerData.indexOf("water")) != null) {
+                                plantDataToSave.put("water", plantData.get(headerData.indexOf("water")).trim());
+                            } else {
+                                plantDataToSave.put("water", "NA");
+                            }
+                            SharedPreferences savedPlants = getSharedPreferences("savedPlants", MODE_PRIVATE);
+                            Map<String, ?> allPlantMap = savedPlants.getAll();
+                            //checking if the id already exist or not
+                            String id = String.valueOf(selectedPlant.getId());
+                            boolean flag1 = false;
+                            for (Map.Entry<String, ?> entry : allPlantMap.entrySet()) {
+                                String key = entry.getKey();
+                                if (key.equals(id)) {
+                                    flag1 = true;
+                                }
+                            }
+                            if (flag1 == false) {
+                                //If not then add it to the SharedPreferences
+                                SharedPreferences.Editor myEdit = savedPlants.edit();
+                                myEdit.putString(String.valueOf(id), plantDataToSave.toString());
+                                myEdit.apply();
+                            } else {
+                                // else show toast that it was already saved
+                                Toast.makeText(activity, "Plant Already Added", Toast.LENGTH_SHORT).show();
+                            }
+                            // Clear top of the intent and go to the HomeActivity
+                            Intent intent = new Intent(activity, HomeActivity.class);
+                            dialog.dismiss();
+                            activity.startActivity(intent);
+                        }catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                    else{
+                        // Clear top of the intent and go to the HomeActivity
+                        Toast.makeText(activity,"Cannot add. Fail to get data\nCheck NetworkConnection", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(activity, HomeActivity.class);
+                        dialog.dismiss();
+                        activity.startActivity(intent);
+                    }
                 }
             });
-
-// Show the AlertDialog
-            AlertDialog dialog = builder.create();
             dialog.show();
 
         });
@@ -183,29 +317,29 @@ public class DetailActivity extends AppCompatActivity {
             if(!inputString.equals("NA")){
                 String[] stringArray = inputString.substring(1, inputString.length() - 1).split(", ");
                 for (int i =0 ; i < stringArray.length; i++){
-                    PlantBasicDetails plant = new PlantBasicDetails(String.valueOf(i), stringArray[i], R.drawable.circle_background);
+                    PlantBasicDetails plant = new PlantBasicDetails(i, stringArray[i], R.drawable.circle_background);
                     GoodNeighboursList.add(plant);
                 }
             }
             else{
-                PlantBasicDetails plant = new PlantBasicDetails("-1", "No known Goodd Plant", R.drawable.circle_background);
+                PlantBasicDetails plant = new PlantBasicDetails(-1, "No known Goodd Plant", R.drawable.circle_background);
                 GoodNeighboursList.add(plant);
             }
             String inputString2 = plantData.get(headerData.indexOf("bad_neighbours")).trim();
             if(!inputString.equals("NA")){
                 String[] stringArray = inputString2.substring(1, inputString2.length() - 1).split(", ");
                 for (int i =0 ; i < stringArray.length; i++){
-                    PlantBasicDetails plant = new PlantBasicDetails(String.valueOf(i), stringArray[i], R.drawable.circle_background);
+                    PlantBasicDetails plant = new PlantBasicDetails(i, stringArray[i], R.drawable.circle_background);
                     BadNeighboursList.add(plant);
                 }
             }
             else{
-                PlantBasicDetails plant = new PlantBasicDetails("-1", "No known Bad Plant", R.drawable.circle_background);
+                PlantBasicDetails plant = new PlantBasicDetails(-1, "No known Bad Plant", R.drawable.circle_background);
                 BadNeighboursList.add(plant);
             }
         }
         else {
-            PlantBasicDetails plant = new PlantBasicDetails("-1", "No-Data", R.drawable.circle_background);
+            PlantBasicDetails plant = new PlantBasicDetails(-1, "No-Data", R.drawable.circle_background);
             GoodNeighboursList.add(plant);
             BadNeighboursList.add(plant);
         }
@@ -222,10 +356,10 @@ public class DetailActivity extends AppCompatActivity {
         BadNeighbours.setItemAnimator(new DefaultItemAnimator());
     }
 
-    private PlantBasicDetails getParsedShape(String parsedID) {
-        for (PlantBasicDetails shape : SearchActivity.plantList) {
-            if(shape.getId().equals(parsedID))
-                return shape;
+    private PlantBasicDetails getParsedPlant(int parsedID) {
+        for (PlantBasicDetails plant : SearchActivity.plantList) {
+            if(plant.getId() == parsedID)
+                return plant;
         }
         return null;
     }
