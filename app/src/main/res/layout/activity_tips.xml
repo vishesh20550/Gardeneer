@@ -49,11 +49,10 @@
             app:srcCompat="@drawable/img_filter" />
     </androidx.appcompat.widget.Toolbar>
 
-
-<!--    <com.anthonyfdev.dropdownview.DropDownView-->
-<!--        android:id="@+id/drop_down_view"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:overlayColor="#EEEEEE" />-->
-
+    <androidx.recyclerview.widget.RecyclerView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/tips_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp" />
 </LinearLayout>
