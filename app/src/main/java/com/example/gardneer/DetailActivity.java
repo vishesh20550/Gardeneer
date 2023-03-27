@@ -11,6 +11,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -311,25 +312,44 @@ public class DetailActivity extends AppCompatActivity {
     public void setList(){
         GoodNeighboursList = new ArrayList<>();
         BadNeighboursList = new ArrayList<>();
+//        Map<String, Integer> map = SearchActivity.map;
 
         if(plantData != null && headerData != null){
-            String inputString = plantData.get(headerData.indexOf("good_neighbous")).trim();
-            if(!inputString.equals("NA")){
-                String[] stringArray = inputString.substring(1, inputString.length() - 1).split(", ");
-                for (int i =0 ; i < stringArray.length; i++){
-                    PlantBasicDetails plant = new PlantBasicDetails(i, stringArray[i], R.drawable.circle_background);
+            String nameString = plantData.get(headerData.indexOf("good_neighbous")).trim();
+            String image_idString = plantData.get(headerData.indexOf("good_neighbous_image_id")).trim();
+            if(!nameString.equals("NA")){
+                String[] nameStringArray = nameString.substring(1, nameString.length() - 1).split(", ");
+                String[] image_idStringArray = image_idString.substring(1, image_idString.length() - 1).split("\\s*,\\s*");
+                for (int i =0 ; i < nameStringArray.length; i++){
+                    PlantBasicDetails plant;
+                    plant = new PlantBasicDetails(i, nameStringArray[i], Integer.parseInt(image_idStringArray[i]));
+//                    if(map.containsKey(nameStringArray[i])){
+//                        plant = new PlantBasicDetails(i, nameStringArray[i], map.get(nameStringArray[i]));
+//                    }
+//                    else{
+//                        plant = new PlantBasicDetails(i, nameStringArray[i], R.drawable.circle_background);
+//                    }
                     GoodNeighboursList.add(plant);
                 }
             }
             else{
-                PlantBasicDetails plant = new PlantBasicDetails(-1, "No known Goodd Plant", R.drawable.circle_background);
+                PlantBasicDetails plant = new PlantBasicDetails(-1, "No known Good Plant", R.drawable.circle_background);
                 GoodNeighboursList.add(plant);
             }
-            String inputString2 = plantData.get(headerData.indexOf("bad_neighbours")).trim();
-            if(!inputString.equals("NA")){
-                String[] stringArray = inputString2.substring(1, inputString2.length() - 1).split(", ");
-                for (int i =0 ; i < stringArray.length; i++){
-                    PlantBasicDetails plant = new PlantBasicDetails(i, stringArray[i], R.drawable.circle_background);
+            String nameString2 = plantData.get(headerData.indexOf("bad_neighbours")).trim();
+            String image_idString2 = plantData.get(headerData.indexOf("bad_neighbours_image_id")).trim();
+            if(!nameString2.equals("NA")){
+                String[] nameStringArray = nameString2.substring(1, nameString2.length() - 1).split(", ");
+                String[] image_idStringArray = image_idString2.substring(1, image_idString2.length() - 1).split("\\s*,\\s*");
+                for (int i =0 ; i < nameStringArray.length; i++){
+                    PlantBasicDetails plant;
+                    plant = new PlantBasicDetails(i, nameStringArray[i], Integer.parseInt(image_idStringArray[i]));
+//                    if(map.containsKey(nameStringArray[i])){
+//                        plant = new PlantBasicDetails(i, nameStringArray[i], map.get(nameStringArray[i]));
+//                    }
+//                    else{
+//                        plant = new PlantBasicDetails(i, nameStringArray[i], R.drawable.circle_background);
+//                    }
                     BadNeighboursList.add(plant);
                 }
             }
