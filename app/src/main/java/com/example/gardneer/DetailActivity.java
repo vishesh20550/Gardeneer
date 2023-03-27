@@ -157,7 +157,8 @@ public class DetailActivity extends AppCompatActivity {
             LayoutInflater inflater = LayoutInflater.from(this);
             View popupView = inflater.inflate(R.layout.popup_layout_detailactivity, null);
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this,R.style.CustomAlertDialog);
+            AlertDialog alertDialog= builder.create();
             builder.setView(popupView);
             AlertDialog dialog = builder.create();
             Button add_more = popupView.findViewById(R.id.add_more_Detail_Activity);
