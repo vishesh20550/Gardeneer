@@ -33,4 +33,11 @@ public class CalendarActivity extends AppCompatActivity {
             Uri uri = cr.insert(CalendarContract.Events.CONTENT_URI, values);
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        this.finishAffinity();
+        finish();
+    }
 }

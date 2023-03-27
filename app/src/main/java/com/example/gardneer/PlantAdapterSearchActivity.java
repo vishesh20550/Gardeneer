@@ -334,6 +334,7 @@ public class PlantAdapterSearchActivity extends RecyclerView.Adapter<PlantAdapte
                         Toast.makeText(activity, "Plant Already Added", Toast.LENGTH_SHORT).show();
                     }
                     Intent intent = new Intent(activity, HomeActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     intent.putExtra("id", plant.getName());
                     activity.startActivity(intent);
                     break;
@@ -345,31 +346,31 @@ public class PlantAdapterSearchActivity extends RecyclerView.Adapter<PlantAdapte
         }
     }
 
-    public void popup(){
-        LayoutInflater inflater = LayoutInflater.from(activity);
-        View popupView = inflater.inflate(R.layout.popup_layout_detailactivity, null);
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        builder.setView(popupView);
-
-        Button add_more = popupView.findViewById(R.id.add_more_Detail_Activity);
-        add_more.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(activity, SearchActivity.class);
-                activity.startActivity(intent);
-            }
-        });
-
-        Button back_to_menu = popupView.findViewById(R.id.back_to_menu_Detail_Activity);
-        back_to_menu.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(activity, HomeActivity.class);
-                activity.startActivity(intent);
-            }
-        });
-        AlertDialog dialog = builder.create();
-        dialog.show();
-    }
+//    public void popup(){
+//        LayoutInflater inflater = LayoutInflater.from(activity);
+//        View popupView = inflater.inflate(R.layout.popup_layout_detailactivity, null);
+//
+//        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+//        builder.setView(popupView);
+//
+//        Button add_more = popupView.findViewById(R.id.add_more_Detail_Activity);
+//        add_more.setOnClickListener(v -> {
+//            Intent intent = new Intent(activity, SearchActivity.class);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+//            activity.startActivity(intent);
+//            activity.finish();
+//        });
+//
+//        Button back_to_menu = popupView.findViewById(R.id.back_to_menu_Detail_Activity);
+//        back_to_menu.setOnClickListener(v -> {
+//            Intent intent = new Intent(activity, HomeActivity.class);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+//            activity.startActivity(intent);
+//            activity.finish();
+//        });
+//        AlertDialog dialog = builder.create();
+//        dialog.show();
+//    }
 }
 
 

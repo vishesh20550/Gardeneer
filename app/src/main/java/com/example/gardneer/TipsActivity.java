@@ -22,4 +22,11 @@ public class TipsActivity extends AppCompatActivity {
 //            onBackPressed();
 //        });
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finishAffinity();
+        finish();
+    }
 }
