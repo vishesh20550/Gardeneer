@@ -1,35 +1,35 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
+    android:paddingHorizontal="50dp"
+    android:paddingBottom="10dp"
+    android:layout_marginHorizontal="40dp"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:background="@drawable/rectangle_bg_gray_400_border_black_900"
     android:layout_margin="20dp"
-    android:background="@drawable/transparent_background"
-    android:backgroundTint="#00000000"
     >
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@drawable/rectangle_bg_gray_400_border_black_900">
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:orientation="vertical"-->
+<!--        android:background="@drawable/rectangle_bg_gray_400_border_black_900">-->
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:text="Changes Saved"
             android:layout_gravity="center"
             android:textSize="30sp"
             android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            ></TextView>
+            android:layout_marginTop="10dp"/>
         <Button
             android:id="@+id/add_more_Detail_Activity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/rectangle_bg_green_401_radius_22"
-            android:layout_marginLeft="100dp"
-            android:layout_marginRight="100dp"
+            android:layout_marginHorizontal="5dp"
             android:layout_marginBottom="10dp"
             android:text="Add more" />
 
@@ -37,12 +37,10 @@
             android:id="@+id/back_to_menu_Detail_Activity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
             android:background="@drawable/rectangle_bg_green_401_radius_22"
-            android:layout_marginLeft="100dp"
-            android:layout_marginRight="100dp"
+            android:layout_marginHorizontal="5dp"
             android:layout_marginBottom="20dp"
             android:text="Back to menu" />
-    </LinearLayout>
+<!--    </LinearLayout>-->
 
 </LinearLayout>

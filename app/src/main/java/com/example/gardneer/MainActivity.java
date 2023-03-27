@@ -12,7 +12,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-    String[] permissions = new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION};
+    String[] permissions = new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.WRITE_CALENDAR,Manifest.permission.READ_CALENDAR, Manifest.permission.INTERNET,Manifest.permission.ACCESS_NETWORK_STATE};
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == 1) {
