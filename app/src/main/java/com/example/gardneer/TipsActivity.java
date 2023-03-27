@@ -17,9 +17,9 @@ public class TipsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tips);
-        button = findViewById(R.id.backButtonTipsActivity);
-        button.setOnClickListener(view -> {
-            onBackPressed();
-        });
+//        button = findViewById(R.id.backButtonTipsActivity);
+//        button.setOnClickListener(view -> {
+//            onBackPressed();
+//        });
     }
 }

@@ -31,11 +31,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 public class SearchActivity extends AppCompatActivity {
 
     public static ArrayList<PlantBasicDetails> plantList;
+//    public static Map<String, Integer> map;
     Activity activity;
     private String Filtertype = "all";
     ArrayList<PlantBasicDetails> filteredplants;
@@ -285,6 +287,60 @@ public class SearchActivity extends AppCompatActivity {
         PlantBasicDetails spider_plants = new PlantBasicDetails(16, "Spider plants", R.drawable.spider_plants_foreground);
         plantList.add(spider_plants);
         setRecyclerView();
+
+//        map = new HashMap<String, Integer>();
+//        map.put("Tomato", R.drawable.toamto_foreground);
+//        map.put("Onion", R.drawable.onion_foreground);
+//        map.put("Potato", R.drawable.potato_foreground);
+//        map.put("Cabbage", R.drawable.cabbage_foreground);
+//        map.put("Lemon", R.drawable.lemon_foreground);
+//        map.put("Spinach", R.drawable.spinach_foreground);
+//        map.put("Pea", R.drawable.pea_foreground);
+//        map.put("Eggplant", R.drawable.eggplant_foreground);
+//        map.put("Watermelon", R.drawable.watermelon_foreground);
+//        map.put("Marigold", R.drawable.marigold_foreground);
+//        map.put("Sunflower", R.drawable.sunflower_foreground);
+//        map.put("Chamomile", R.drawable.chamomile_foreground);
+//        map.put("Rose", R.drawable.rose_foreground);
+//        map.put("Aloevera", R.drawable.aloevera_foreground);
+//        map.put("Tulsi", R.drawable.tulsi_foreground);
+//        map.put("Money plant", R.drawable.money_plant_foreground);
+//        map.put("Spider plants", R.drawable.spider_plants_foreground);
+//        map.put("Carrot", R.drawable.carrot_foreground);
+//        map.put("Corn", R.drawable.corn_foreground);
+//        map.put("Peanut", R.drawable.peanut_foreground);
+//        map.put("Beans", R.drawable.beans_foreground);
+//        map.put("Radish", R.drawable.radish_foreground);
+//        map.put("Thyme", R.drawable.thyme_foreground);
+//        map.put("Beets", R.drawable.beets_foreground);
+//        map.put("Strawberry", R.drawable.strawberries_foreground);
+//        map.put("Pepper", R.drawable.pepper_foreground);
+//        map.put("Grape", R.drawable.grape_foreground);
+//        map.put("Garlic", R.drawable.garlic_foreground);
+//        map.put("Leek", R.drawable.leek_foreground);
+//        map.put("Cauliflower", R.drawable.cauliflower_foreground);
+//        map.put("Cucumber", R.drawable.cucumber_foreground);
+//        map.put("Pumpkin", R.drawable.pumpkin_foreground);
+//        map.put("Melon", R.drawable.melon_foreground);
+//        map.put("Fennel", R.drawable.fennel_foreground);
+//        map.put("Mint", R.drawable.mint_foreground);
+//        map.put("Basil", R.drawable.basil_foreground);
+//        map.put("Parsley", R.drawable.parsley_foreground);
+//        map.put("Lavender", R.drawable.lavender_foreground);
+//        map.put("Peppermint", R.drawable.peppermint_foreground);
+//        map.put("Anise", R.drawable.anise_foreground);
+//        map.put("Dill", R.drawable.dill_foreground);
+//        map.put("Ivy", R.drawable.ivy_foreground);
+//        map.put("Pothos", R.drawable.pothos_foreground);
+//        map.put("Daffodils", R.drawable.daffodils_foreground);
+//        map.put("Fern", R.drawable.fern_foreground);
+
+
+
+
+
+
+
     }
 
     private void setRecyclerView(){
