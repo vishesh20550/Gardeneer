@@ -94,6 +94,8 @@ public class CalendarActivity extends AppCompatActivity {
                 Uri uri = cr.insert(CalendarContract.Events.CONTENT_URI, values);
                 DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
                 addEventToSharedPreferences(eventTitle);
+                eventAdapter.add(eventTitle);
+                eventAdapter.notifyDataSetChanged();
                 Toast.makeText(CalendarActivity.this, "Event " + eventTitle + " created for " + df.format(selectedDate.getTime()), Toast.LENGTH_SHORT).show();
             }
         });
