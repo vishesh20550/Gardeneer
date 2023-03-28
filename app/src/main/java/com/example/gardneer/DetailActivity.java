@@ -267,7 +267,8 @@ public class DetailActivity extends AppCompatActivity {
                 String[] image_idStringArray = image_idString.substring(1, image_idString.length() - 1).split("\\s*,\\s*");
                 for (int i =0 ; i < nameStringArray.length; i++){
                     PlantBasicDetails plant;
-                    plant = new PlantBasicDetails(i, nameStringArray[i], Integer.parseInt(image_idStringArray[i]));
+                    int resourceId = getResources().getIdentifier(image_idStringArray[i], "drawable", getPackageName());
+                    plant = new PlantBasicDetails(i, nameStringArray[i], resourceId);
 //                    if(map.containsKey(nameStringArray[i])){
 //                        plant = new PlantBasicDetails(i, nameStringArray[i], map.get(nameStringArray[i]));
 //                    }
@@ -288,7 +289,8 @@ public class DetailActivity extends AppCompatActivity {
                 String[] image_idStringArray = image_idString2.substring(1, image_idString2.length() - 1).split("\\s*,\\s*");
                 for (int i =0 ; i < nameStringArray.length; i++){
                     PlantBasicDetails plant;
-                    plant = new PlantBasicDetails(i, nameStringArray[i], Integer.parseInt(image_idStringArray[i]));
+                    int resourceId = getResources().getIdentifier(image_idStringArray[i], "drawable", getPackageName());
+                    plant = new PlantBasicDetails(i, nameStringArray[i], resourceId);
 //                    if(map.containsKey(nameStringArray[i])){
 //                        plant = new PlantBasicDetails(i, nameStringArray[i], map.get(nameStringArray[i]));
 //                    }
