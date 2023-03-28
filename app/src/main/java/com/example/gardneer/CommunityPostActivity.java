@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -71,11 +73,24 @@ public class CommunityPostActivity extends AppCompatActivity {
         private String mDetails;
         private String mPostedBy;
         private String mMetadata;
+        private int mLikes;
+        private int mComments;
         public CommunityPost(String title, String details, String postedBy, String metadata) {
             mTitle = title;
             mDetails = details;
             mPostedBy = postedBy;
             mMetadata = metadata;
+
+            Log.d("CommunityPost", mMetadata);
+            try {
+                JSONObject metadataJson = new JSONObject(metadata);
+                mLikes = metadataJson.getInt("likes");
+                JSONArray commentsJson = metadataJson.getJSONArray("comments");
+                mComments = commentsJson.length();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
         }
 
         public String getTitle() {
@@ -90,8 +105,13 @@ public class CommunityPostActivity extends AppCompatActivity {
             return mPostedBy;
         }
 
-        public String getMetadata() {
-            return mMetadata;
+
+        public int getLikes() {
+            return mLikes;
+        }
+
+        public int getComments() {
+            return mComments;
         }
     }
     private class CommunityPostAdapter extends RecyclerView.Adapter<CommunityPostAdapter.CommunityPostViewHolder> {
@@ -136,6 +156,8 @@ public class CommunityPostActivity extends AppCompatActivity {
             holder.mTitleView.setText(post.getTitle());
             holder.mDetailsView.setText(post.getDetails());
             holder.mPostedByView.setText(post.getPostedBy());
+            holder.mLikeButton.setText(String.valueOf(post.getLikes()));
+            holder.mCommentButton.setText(String.valueOf(post.getComments()));
 
             holder.mLikeButton.setOnClickListener(new View.OnClickListener() {
                 @Override
