@@ -25,6 +25,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.Process;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -156,7 +157,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         if (drawer.isDrawerOpen(GravityCompat.START )) {
             drawer.closeDrawer(GravityCompat.START ) ;
         } else {
-            finish();
+            this.finishAffinity();
         }
     }
     @Override

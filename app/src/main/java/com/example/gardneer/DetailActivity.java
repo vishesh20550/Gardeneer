@@ -150,159 +150,104 @@ public class DetailActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
     public void settingOnclicklisteners(){
         backButton.setOnClickListener(view -> {
             onBackPressed();
         });
         addToListButton.setOnClickListener(view -> {
+            if(plantData != null && headerData != null) {
+                try{
+                    JSONObject plantDataToSave = new JSONObject();
+                    plantDataToSave.put("id", selectedPlant.getId());
+                    plantDataToSave.put("name", selectedPlant.getName());
+                    plantDataToSave.put("image", selectedPlant.getImage());
+                    if (plantData.get(headerData.indexOf("seed")) != null) {
+                        plantDataToSave.put("seed", plantData.get(headerData.indexOf("seed")).trim());
+                    } else {
+                        plantDataToSave.put("seed", "NA");
+                    }
+                    if (plantData.get(headerData.indexOf("weather_requirement")) != null) {
+                        plantDataToSave.put("weather_requirement", plantData.get(headerData.indexOf("weather_requirement")).trim());
+                    } else {
+                        plantDataToSave.put("weather_requirement", "NA");
+                    }
+                    if (plantData.get(headerData.indexOf("sprout_to_harvest")) != null) {
+                        plantDataToSave.put("sprout_to_harvest", plantData.get(headerData.indexOf("sprout_to_harvest")).trim());
+                    } else {
+                        plantDataToSave.put("sprout_to_harvest", "NA");
+                    }
+                    if (plantData.get(headerData.indexOf("season")) != null) {
+                        plantDataToSave.put("season", plantData.get(headerData.indexOf("season")).trim());
+                    } else {
+                        plantDataToSave.put("season", "NA");
+                    }
+                    if (plantData.get(headerData.indexOf("water")) != null) {
+                        plantDataToSave.put("water", plantData.get(headerData.indexOf("water")).trim());
+                    } else {
+                        plantDataToSave.put("water", "NA");
+                    }
+                    SharedPreferences savedPlants = getSharedPreferences("savedPlants", MODE_PRIVATE);
+                    Map<String, ?> allPlantMap = savedPlants.getAll();
+                    //checking if the id already exist or not
+                    String id = String.valueOf(selectedPlant.getId());
+                    boolean flag1 = false;
+                    for (Map.Entry<String, ?> entry : allPlantMap.entrySet()) {
+                        String key = entry.getKey();
+                        if (key.equals(id)) {
+                            flag1 = true;
+                        }
+                    }
+                    if (flag1 == false) {
+                        //If not then add it to the SharedPreferences
+                        SharedPreferences.Editor myEdit = savedPlants.edit();
+                        myEdit.putString(String.valueOf(id), plantDataToSave.toString());
+                        myEdit.apply();
+                    } else {
+                        // else show toast that it was already saved
+                        Toast.makeText(activity, "Plant Already Added", Toast.LENGTH_SHORT).show();
+                    }
+                }catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            else{
+                // Clear top of the intent and go to the HomeActivity
+                Toast.makeText(activity,"Cannot add. Fail to get data\nCheck NetworkConnection", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(activity, HomeActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                activity.startActivity(intent);
+                finish();
+            }
             LayoutInflater inflater = LayoutInflater.from(this);
             View popupView = inflater.inflate(R.layout.popup_layout_detailactivity, null);
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this,R.style.CustomAlertDialog);
-            AlertDialog alertDialog= builder.create();
             builder.setView(popupView);
             AlertDialog dialog = builder.create();
             Button add_more = popupView.findViewById(R.id.add_more_Detail_Activity);
-            add_more.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    if(plantData != null && headerData != null){
-                        try{
-                            JSONObject plantDataToSave = new JSONObject();
-                            plantDataToSave.put("id", selectedPlant.getId());
-                            plantDataToSave.put("name", selectedPlant.getName());
-                            plantDataToSave.put("image", selectedPlant.getImage());
-                            if (plantData.get(headerData.indexOf("seed")) != null) {
-                                plantDataToSave.put("seed", plantData.get(headerData.indexOf("seed")).trim());
-                            } else {
-                                plantDataToSave.put("seed", "NA");
-                            }
-                            if (plantData.get(headerData.indexOf("weather_requirement")) != null) {
-                                plantDataToSave.put("weather_requirement", plantData.get(headerData.indexOf("weather_requirement")).trim());
-                            } else {
-                                plantDataToSave.put("weather_requirement", "NA");
-                            }
-                            if (plantData.get(headerData.indexOf("sprout_to_harvest")) != null) {
-                                plantDataToSave.put("sprout_to_harvest", plantData.get(headerData.indexOf("sprout_to_harvest")).trim());
-                            } else {
-                                plantDataToSave.put("sprout_to_harvest", "NA");
-                            }
-                            if (plantData.get(headerData.indexOf("season")) != null) {
-                                plantDataToSave.put("season", plantData.get(headerData.indexOf("season")).trim());
-                            } else {
-                                plantDataToSave.put("season", "NA");
-                            }
-                            if (plantData.get(headerData.indexOf("water")) != null) {
-                                plantDataToSave.put("water", plantData.get(headerData.indexOf("water")).trim());
-                            } else {
-                                plantDataToSave.put("water", "NA");
-                            }
-                            SharedPreferences savedPlants = getSharedPreferences("savedPlants", MODE_PRIVATE);
-                            Map<String, ?> allPlantMap = savedPlants.getAll();
-                            //checking if the id already exist or not
-                            String id = String.valueOf(selectedPlant.getId());
-                            boolean flag1 = false;
-                            for (Map.Entry<String, ?> entry : allPlantMap.entrySet()) {
-                                String key = entry.getKey();
-                                if (key.equals(id)) {
-                                    flag1 = true;
-                                }
-                            }
-                            if (flag1 == false) {
-                                //If not then add it to the SharedPreferences
-                                SharedPreferences.Editor myEdit = savedPlants.edit();
-                                myEdit.putString(String.valueOf(id), plantDataToSave.toString());
-                                myEdit.apply();
-                            } else {
-                                // else show toast that it was already saved
-                                Toast.makeText(activity, "Plant Already Added", Toast.LENGTH_SHORT).show();
-                            }
-                            // Clear top of the intent and go to the HomeActivity
-                            Intent intent = new Intent(activity, SearchActivity.class);
-                            dialog.dismiss();
-                            activity.startActivity(intent);
-                        }catch (JSONException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                    else{
-                        Toast.makeText(activity,"Data not available\nCheck NetworkConnection", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(activity, SearchActivity.class);
-                        dialog.dismiss();
-                        activity.startActivity(intent);
-                    }
-                }
+            add_more.setOnClickListener(v -> {
+                        // Clear top of the intent and go to the HomeActivity
+                    Intent intent = new Intent(activity, SearchActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    dialog.dismiss();
+                    activity.startActivity(intent);
+                    finish();
             });
 
             Button back_to_menu = popupView.findViewById(R.id.back_to_menu_Detail_Activity);
-            back_to_menu.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    if(plantData != null && headerData != null) {
-                        try{
-                            JSONObject plantDataToSave = new JSONObject();
-                            plantDataToSave.put("id", selectedPlant.getId());
-                            plantDataToSave.put("name", selectedPlant.getName());
-                            plantDataToSave.put("image", selectedPlant.getImage());
-                            if (plantData.get(headerData.indexOf("seed")) != null) {
-                                plantDataToSave.put("seed", plantData.get(headerData.indexOf("seed")).trim());
-                            } else {
-                                plantDataToSave.put("seed", "NA");
-                            }
-                            if (plantData.get(headerData.indexOf("weather_requirement")) != null) {
-                                plantDataToSave.put("weather_requirement", plantData.get(headerData.indexOf("weather_requirement")).trim());
-                            } else {
-                                plantDataToSave.put("weather_requirement", "NA");
-                            }
-                            if (plantData.get(headerData.indexOf("sprout_to_harvest")) != null) {
-                                plantDataToSave.put("sprout_to_harvest", plantData.get(headerData.indexOf("sprout_to_harvest")).trim());
-                            } else {
-                                plantDataToSave.put("sprout_to_harvest", "NA");
-                            }
-                            if (plantData.get(headerData.indexOf("season")) != null) {
-                                plantDataToSave.put("season", plantData.get(headerData.indexOf("season")).trim());
-                            } else {
-                                plantDataToSave.put("season", "NA");
-                            }
-                            if (plantData.get(headerData.indexOf("water")) != null) {
-                                plantDataToSave.put("water", plantData.get(headerData.indexOf("water")).trim());
-                            } else {
-                                plantDataToSave.put("water", "NA");
-                            }
-                            SharedPreferences savedPlants = getSharedPreferences("savedPlants", MODE_PRIVATE);
-                            Map<String, ?> allPlantMap = savedPlants.getAll();
-                            //checking if the id already exist or not
-                            String id = String.valueOf(selectedPlant.getId());
-                            boolean flag1 = false;
-                            for (Map.Entry<String, ?> entry : allPlantMap.entrySet()) {
-                                String key = entry.getKey();
-                                if (key.equals(id)) {
-                                    flag1 = true;
-                                }
-                            }
-                            if (flag1 == false) {
-                                //If not then add it to the SharedPreferences
-                                SharedPreferences.Editor myEdit = savedPlants.edit();
-                                myEdit.putString(String.valueOf(id), plantDataToSave.toString());
-                                myEdit.apply();
-                            } else {
-                                // else show toast that it was already saved
-                                Toast.makeText(activity, "Plant Already Added", Toast.LENGTH_SHORT).show();
-                            }
-                            // Clear top of the intent and go to the HomeActivity
-                            Intent intent = new Intent(activity, HomeActivity.class);
-                            dialog.dismiss();
-                            activity.startActivity(intent);
-                        }catch (JSONException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                    else{
-                        // Clear top of the intent and go to the HomeActivity
-                        Toast.makeText(activity,"Cannot add. Fail to get data\nCheck NetworkConnection", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(activity, HomeActivity.class);
-                        dialog.dismiss();
-                        activity.startActivity(intent);
-                    }
-                }
+            back_to_menu.setOnClickListener(v -> {
+                    // Clear top of the intent and go to the HomeActivity
+                    Intent intent = new Intent(activity, HomeActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    dialog.dismiss();
+                    activity.startActivity(intent);
+                    finish();
             });
             dialog.show();
 
@@ -322,7 +267,8 @@ public class DetailActivity extends AppCompatActivity {
                 String[] image_idStringArray = image_idString.substring(1, image_idString.length() - 1).split("\\s*,\\s*");
                 for (int i =0 ; i < nameStringArray.length; i++){
                     PlantBasicDetails plant;
-                    plant = new PlantBasicDetails(i, nameStringArray[i], Integer.parseInt(image_idStringArray[i]));
+                    int resourceId = getResources().getIdentifier(image_idStringArray[i], "drawable", getPackageName());
+                    plant = new PlantBasicDetails(i, nameStringArray[i], resourceId);
 //                    if(map.containsKey(nameStringArray[i])){
 //                        plant = new PlantBasicDetails(i, nameStringArray[i], map.get(nameStringArray[i]));
 //                    }
@@ -343,7 +289,8 @@ public class DetailActivity extends AppCompatActivity {
                 String[] image_idStringArray = image_idString2.substring(1, image_idString2.length() - 1).split("\\s*,\\s*");
                 for (int i =0 ; i < nameStringArray.length; i++){
                     PlantBasicDetails plant;
-                    plant = new PlantBasicDetails(i, nameStringArray[i], Integer.parseInt(image_idStringArray[i]));
+                    int resourceId = getResources().getIdentifier(image_idStringArray[i], "drawable", getPackageName());
+                    plant = new PlantBasicDetails(i, nameStringArray[i], resourceId);
 //                    if(map.containsKey(nameStringArray[i])){
 //                        plant = new PlantBasicDetails(i, nameStringArray[i], map.get(nameStringArray[i]));
 //                    }

@@ -367,8 +367,7 @@ public class SearchActivity extends AppCompatActivity {
                 else {
                     Toast.makeText(activity, "No Internet", Toast.LENGTH_SHORT).show();
                     Toast.makeText(activity, "Failed to Download Initial Files", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(activity,HomeActivity.class);
-                    activity.startActivity(intent);
+                    onBackPressed();
                 }
             }
         }
@@ -410,8 +409,7 @@ public class SearchActivity extends AppCompatActivity {
                 else{
                     Toast.makeText(activity, "No Internet", Toast.LENGTH_SHORT).show();
                     Toast.makeText(activity, "Failed to Download Initial Files", Toast.LENGTH_SHORT).show();;
-                    Intent intent = new Intent(activity,HomeActivity.class);
-                    activity.startActivity(intent);
+                    onBackPressed();
                 }
             }
         });
@@ -453,7 +451,9 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(activity, HomeActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         activity.startActivity(intent);
+        finish();
     }
 
 }

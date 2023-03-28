@@ -13,7 +13,7 @@
         android:gravity="center"
         android:orientation="vertical"
         android:id="@+id/nextbButtonShapeCell"
-        android:background="@color/colorPrimary"
+        android:background="@color/white"
         >
 
         <ImageView
@@ -31,7 +31,7 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:text="Plant name"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/black"
             android:textSize="17dp" />
 
     </LinearLayout>

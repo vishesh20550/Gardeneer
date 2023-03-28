@@ -62,7 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="plant name"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@color/black"
         android:textSize="20dp" />
     <TextView
         android:id="@+id/plantScientificNameDetailActivity"

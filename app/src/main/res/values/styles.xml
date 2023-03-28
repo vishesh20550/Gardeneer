@@ -414,7 +414,7 @@
     <style name="CalenderViewCustom" parent="Theme.AppCompat">
         <item name="colorAccent">@color/green_401</item>
         <item name="colorPrimary">@android:color/darker_gray</item>
-        <item name="android:textColorPrimary">@color/colorPrimary</item>
+        <item name="android:textColorPrimary">@color/black</item>
     </style>
 
     <style name="CalenderViewDateCustomText" parent="android:TextAppearance.DeviceDefault.Small">
