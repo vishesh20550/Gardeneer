@@ -43,5 +43,12 @@
             app:srcCompat="@drawable/img_filter" />
     </androidx.appcompat.widget.Toolbar>
 
+    <androidx.recyclerview.widget.RecyclerView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/community_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        android:layout_marginTop="48dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
