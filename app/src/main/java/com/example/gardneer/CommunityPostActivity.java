@@ -1,6 +1,7 @@
 package com.example.gardneer;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,6 +24,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+
 
 public class CommunityPostActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
@@ -105,7 +107,9 @@ public class CommunityPostActivity extends AppCompatActivity {
             return mPostedBy;
         }
 
-
+        public String getMetadata() {
+            return mMetadata;
+        }
         public int getLikes() {
             return mLikes;
         }
@@ -113,6 +117,11 @@ public class CommunityPostActivity extends AppCompatActivity {
         public int getComments() {
             return mComments;
         }
+    }
+    private void showCommentDialog(String metadata) {
+        FragmentManager fm = getSupportFragmentManager();
+        CommentDialogFragment dialogFragment = CommentDialogFragment.newInstance(metadata);
+        dialogFragment.show(fm, "Comment Dialog");
     }
     private class CommunityPostAdapter extends RecyclerView.Adapter<CommunityPostAdapter.CommunityPostViewHolder> {
 
@@ -170,6 +179,7 @@ public class CommunityPostActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     // Handle comment button click event
+                    showCommentDialog(post.getMetadata());
                 }
             });
 
