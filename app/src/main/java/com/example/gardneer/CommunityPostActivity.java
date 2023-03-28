@@ -1,5 +1,6 @@
 package com.example.gardneer;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -43,6 +44,13 @@ public class CommunityPostActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         ArrayList<CommunityPost> communityPosts = new ArrayList<>();
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                finish();
+            }
+        };
+        this.getOnBackPressedDispatcher().addCallback(this, callback);
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, communityPostsUrl, null,
@@ -196,10 +204,10 @@ public class CommunityPostActivity extends AppCompatActivity {
             return mCommunityPosts.size();
         }
     }
-        @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        this.finishAffinity();
-        finish();
-    }
+//        @Override
+//    public void onBackPressed() {
+//        super.onBackPressed();
+//        this.finishAffinity();
+//        finish();
+//    }
 }

@@ -1,5 +1,6 @@
 package com.example.gardneer;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -36,6 +37,14 @@ public class TipsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                finish();
+            }
+        };
+        this.getOnBackPressedDispatcher().addCallback(this, callback);
+
         setContentView(R.layout.activity_tips);
         recyclerView = findViewById(R.id.tips_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -126,10 +135,10 @@ public class TipsActivity extends AppCompatActivity {
             }
         }
     }
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        finishAffinity();
-        finish();
-    }
+//    @Override
+//    public void onBackPressed() {
+//        super.onBackPressed();
+//        finishAffinity();
+//        finish();
+//    }
 }
