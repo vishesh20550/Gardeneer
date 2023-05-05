@@ -130,8 +130,9 @@
                                 android:weightSum="1">
 
                                 <FrameLayout
+                                    android:id="@+id/fertilizerCalculator"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="130dp"
+                                    android:layout_height="100dp"
                                     android:layout_margin="5dp"
                                     android:layout_weight="0.5"
                                     android:background="@drawable/rectangle_bg_gray_300_radius_8">
@@ -154,7 +155,7 @@
 
                                 <FrameLayout
                                     android:layout_width="wrap_content"
-                                    android:layout_height="130dp"
+                                    android:layout_height="100dp"
                                     android:layout_margin="5dp"
                                     android:layout_weight="0.5"
                                     android:background="@drawable/rectangle_bg_gray_300_radius_8">

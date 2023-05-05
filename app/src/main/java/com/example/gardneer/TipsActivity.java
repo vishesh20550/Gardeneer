@@ -44,8 +44,16 @@ public class TipsActivity extends AppCompatActivity {
             }
         };
         this.getOnBackPressedDispatcher().addCallback(this, callback);
-
         setContentView(R.layout.activity_tips);
+
+        button = findViewById(R.id.backButtonTipsActivity);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
         recyclerView = findViewById(R.id.tips_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         dataList = new ArrayList<>();

@@ -100,15 +100,15 @@ public class PlantAdapterSearchActivity extends RecyclerView.Adapter<PlantAdapte
 
     private void getDataFromSheet(String plant_name, PlantBasicDetails plant) throws JSONException {
         ConnectivityManager connectivityManager = (ConnectivityManager) activity.getSystemService(activity.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-        if (networkInfo != null && networkInfo.isConnected()) {
+        SharedPreferences savejsonarray = activity.getSharedPreferences("savedJsonArray", MODE_PRIVATE);
+        if (savejsonarray.contains("JsonArray")) {
             // active internet connection download latest file
-            getDataFromSheet2(plant_name, plant);
+            getDataFromSheet1(plant_name, plant);
         } else {
             // No internet connection check buffer
-            SharedPreferences savejsonarray = activity.getSharedPreferences("savedJsonArray", MODE_PRIVATE);
-            if (savejsonarray.contains("JsonArray"))
-                getDataFromSheet1(plant_name, plant);
+            NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+            if (networkInfo != null && networkInfo.isConnected())
+                getDataFromSheet2(plant_name, plant);
             else{
                 Toast.makeText(activity, "Fail to get data\nCheck NetworkConnection", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(activity,DetailActivity.class);

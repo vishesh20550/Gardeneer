@@ -33,6 +33,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -85,6 +86,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     String temp,temp_min,temp_max,humidity;
     ImageView currentWeatherImageView;
     ArrayList<PlantInfoHomeClass> plantInfos;
+    FrameLayout fertilizerCalculator;
     public void initialize(){
         progressOverlay =findViewById(R.id.progress_overlay);
         inAnimation = new AlphaAnimation(0f, 1f);
@@ -102,7 +104,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         dateWeatherTV = findViewById(R.id.dateWeatherTV);
         btn_notification=findViewById(R.id.btn_notification);
         currentWeatherImageView=findViewById(R.id.currentWeatherImageView);
-
+        fertilizerCalculator = findViewById(R.id.fertilizerCalculator);
 
     }
     @Override
@@ -114,6 +116,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         SettingSavedList();
         addPlantButton.setOnClickListener(view -> {
             Intent i = new Intent(HomeActivity.this, SearchActivity.class);
+            startActivity(i);
+        });
+
+        fertilizerCalculator.setOnClickListener(view -> {
+            Intent i = new Intent(HomeActivity.this, FertilizerCalculator.class);
             startActivity(i);
         });
 
