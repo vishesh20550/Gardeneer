@@ -29,6 +29,17 @@
             tools:layout_editor_absoluteY="14dp"
             android:layout_gravity="center"
             />
+        <TextView
+            android:id="@+id/backButtonCPActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/back"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="30dp"
+            tools:layout_editor_absoluteX="165dp"
+            tools:layout_editor_absoluteY="14dp" />
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView

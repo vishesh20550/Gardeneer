@@ -42,8 +42,10 @@ public class CommunityPostActivity extends AppCompatActivity implements CommentL
     FirebaseAuth mAuth;
     FirebaseUser user;
     Button addNewPostButton,postButton,cancelButton;
-    EditText detailsEditText,titleEditText;
+    TextView backButtonCPActivity;
+    EditText detailsEditText,titleEditText,usernameEditText;
     Dialog popupAddPost;
+    String tempUsername="";
     private RecyclerView mRecyclerView;
     ArrayList<CommunityPost> communityPosts;
     private RecyclerView.Adapter mAdapter;
@@ -58,12 +60,16 @@ public class CommunityPostActivity extends AppCompatActivity implements CommentL
         mRecyclerView = findViewById(R.id.community_recycler_view);
         mRecyclerView.setHasFixedSize(true);
         addNewPostButton= findViewById(R.id.addNewPostButton);
+        backButtonCPActivity= findViewById(R.id.backButtonCPActivity);
+        backButtonCPActivity.setOnClickListener(view -> {onBackPressed();});
+
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         loadData();
         initializePopup();
         addNewPostButton.setOnClickListener(view -> {
             titleEditText.setText("");
+            usernameEditText.setText(tempUsername);
             detailsEditText.setText("");
             popupAddPost.show();
         });
@@ -133,18 +139,21 @@ public class CommunityPostActivity extends AppCompatActivity implements CommentL
         cancelButton= popupAddPost.findViewById(R.id.cancelButton);
         detailsEditText= popupAddPost.findViewById(R.id.detailsEditText);
         titleEditText= popupAddPost.findViewById(R.id.titleEditText);
+        usernameEditText = popupAddPost.findViewById(R.id.usernameEditText);
         cancelButton.setOnClickListener(view -> {
             titleEditText.setText("");
+            usernameEditText.setText(tempUsername);
             detailsEditText.setText("");
             popupAddPost.dismiss();
         });
         postButton.setOnClickListener(view -> {
-            if(titleEditText.getText().toString().isEmpty() || detailsEditText.getText().toString().isEmpty()){
+            if(titleEditText.getText().toString().isEmpty() || detailsEditText.getText().toString().isEmpty() || usernameEditText.getText().toString().isEmpty()){
                 Toast.makeText(this, "Please enter title and description to post", Toast.LENGTH_SHORT).show();
             }
             else{
                 String metadata = "{\"comments\": []}";
-                CommunityPost post = new CommunityPost(titleEditText.getText().toString(),detailsEditText.getText().toString(),user.getUid().toString(),metadata,0);
+                tempUsername = usernameEditText.getText().toString();
+                CommunityPost post = new CommunityPost(titleEditText.getText().toString(),detailsEditText.getText().toString(),usernameEditText.getText().toString(),metadata,0);
                 DatabaseReference ref= FirebaseDatabase.getInstance().getReference().child("Posts").push();
                 String postKey = ref.getKey();
                 post.setPostId(postKey);
@@ -201,7 +210,7 @@ public class CommunityPostActivity extends AppCompatActivity implements CommentL
             public TextView mPostedByView;
             public Button mLikeButton;
             public Button mCommentButton;
-            public Button mShareButton;
+//            public Button mShareButton;
 
             public CommunityPostViewHolder(View itemView) {
                 super(itemView);
@@ -210,7 +219,7 @@ public class CommunityPostActivity extends AppCompatActivity implements CommentL
                 mPostedByView = itemView.findViewById(R.id.posted_by);
                 mLikeButton = itemView.findViewById(R.id.like_button);
                 mCommentButton = itemView.findViewById(R.id.comment_button);
-                mShareButton = itemView.findViewById(R.id.share_button);
+//                mShareButton = itemView.findViewById(R.id.share_button);
             }
         }
 
@@ -273,9 +282,9 @@ public class CommunityPostActivity extends AppCompatActivity implements CommentL
                 showCommentDialog(post.getMetadata(),post.getPostId());
             });
 
-            holder.mShareButton.setOnClickListener(v -> {
+//            holder.mShareButton.setOnClickListener(v -> {
                 // Handle share button click event
-            });
+//            });
         }
 
         @Override

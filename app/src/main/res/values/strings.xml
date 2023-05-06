@@ -55,6 +55,7 @@
     <string name="post">Post</string>
     <string name="cancel">Cancel</string>
     <string name="add_comment_here">Add Comment Here</string>
+    <string name="username">Username to use on a post</string>
     <string-array name="spinner_items">
         <item>Small</item>
         <item>Medium</item>

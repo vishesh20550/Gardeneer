@@ -28,15 +28,15 @@
             android:layout_height="wrap_content"
             android:textAppearance="?attr/textAppearanceHeadline6"
             android:layout_centerVertical="true"/>
-        <Button
-            style="@style/Widget.Material3.Button.IconButton"
-            app:icon="@drawable/ic_share"
-            android:id="@+id/share_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            />
+<!--        <Button-->
+<!--            style="@style/Widget.Material3.Button.IconButton"-->
+<!--            app:icon="@drawable/ic_share"-->
+<!--            android:id="@+id/share_button"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_alignParentEnd="true"-->
+<!--            android:layout_centerVertical="true"-->
+<!--            />-->
         </RelativeLayout>
         <TextView
             android:id="@+id/details"

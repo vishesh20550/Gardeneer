@@ -17,11 +17,23 @@
             android:layout_marginTop="20dp"
             android:padding="5dp">
             <EditText
+                android:id="@+id/usernameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:maxLines="100"
+                android:inputType="textPersonName"
+                android:hint="@string/username"
+                android:scrollHorizontally="false"
+                android:background="@drawable/popup_edittext_style"
+                />
+            <EditText
                 android:id="@+id/titleEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:maxLines="100"
+                android:layout_marginTop="5dp"
                 android:inputType="textPersonName"
                 android:hint="@string/title"
                 android:scrollHorizontally="false"

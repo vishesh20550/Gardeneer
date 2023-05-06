@@ -135,6 +135,7 @@ public class CommentListFragment extends Fragment {
                     }
                 });
             }
+            addCommentEditText.setText("");
         });
         return view;
     }

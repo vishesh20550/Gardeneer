@@ -57,7 +57,7 @@ public class FertilizerCalculator extends AppCompatActivity {
                         if (number < 1) {
                             Toast.makeText(getApplicationContext(), "Enter Valid Number of Plants", Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(FertilizerCalculator.this, potSize + " "+ pot+ " "+number, Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(FertilizerCalculator.this, potSize + " "+ pot+ " "+number, Toast.LENGTH_SHORT).show();
 
                             String fertilizer_S = "Total fertilizer: " + pot*number*0.5+" Teaspoon ("+ pot*number*12.5 + " gram)"+
                                     "\n\nFertilizer per-Plant: " +pot*0.5+" Teaspoon ("+ pot*12.5 + " gram)"+
