@@ -50,6 +50,11 @@
     <string name="fertilizer_details">Fertilizer Details</string>
     <string name="calculate">Calculate</string>
     <string name="number_of_plants">Number of Plants :</string>
+    <string name="description">Description</string>
+    <string name="title">Title</string>
+    <string name="post">Post</string>
+    <string name="cancel">Cancel</string>
+    <string name="add_comment_here">Add Comment Here</string>
     <string-array name="spinner_items">
         <item>Small</item>
         <item>Medium</item>

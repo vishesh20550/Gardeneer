@@ -17,11 +17,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/img_file"
-            android:layout_marginLeft="15dp" />
 
 
         <TextView
@@ -34,13 +29,6 @@
             tools:layout_editor_absoluteY="14dp"
             android:layout_gravity="center"
             />
-        <ImageView
-            android:id="@+id/FilterSearchActivity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="7dp"
-            android:layout_gravity="end"
-            app:srcCompat="@drawable/img_filter" />
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -52,7 +40,7 @@
         android:layout_marginTop="48dp"/>
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/extended_fab"
+        android:id="@+id/addNewPostButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"

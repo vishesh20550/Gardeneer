@@ -26,7 +26,6 @@
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Title"
             android:textAppearance="?attr/textAppearanceHeadline6"
             android:layout_centerVertical="true"/>
         <Button
@@ -44,7 +43,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Details"
             android:textAppearance="?attr/textAppearanceBody1"/>
 
         <TextView
@@ -52,7 +50,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Posted by"
             android:textAppearance="?attr/textAppearanceCaption"/>
 
         <LinearLayout
@@ -69,8 +66,7 @@
                 app:strokeColor="@color/green_400"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:layout_marginRight="8dp"
-                android:text="0"
+                android:layout_marginEnd="8dp"
                 android:textSize="12sp"
                 />
 
