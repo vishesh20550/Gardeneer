@@ -47,12 +47,7 @@ public class TipsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tips);
 
         button = findViewById(R.id.backButtonTipsActivity);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
+        button.setOnClickListener(view -> onBackPressed());
 
         recyclerView = findViewById(R.id.tips_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

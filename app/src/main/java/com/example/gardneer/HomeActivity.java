@@ -102,7 +102,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         tempWeatherTV=findViewById(R.id.tempWeatherTV);
         maxMinTempTV=findViewById(R.id.maxMinTempTV);
         dateWeatherTV = findViewById(R.id.dateWeatherTV);
-        btn_notification=findViewById(R.id.btn_notification);
+//        btn_notification=findViewById(R.id.btn_notification);
         currentWeatherImageView=findViewById(R.id.currentWeatherImageView);
         fertilizerCalculator = findViewById(R.id.fertilizerCalculator);
 
@@ -136,20 +136,20 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int id =item.getItemId();
             if (id == R.id.myPlantsMenuItem) {
-                Toast.makeText(HomeActivity.this, "My Plants Clicked", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(HomeActivity.this, "My Plants Clicked", Toast.LENGTH_SHORT).show();
                 return true;
             }else if (id == R.id.calendarMenuItems) {
-                Toast.makeText(HomeActivity.this, "Calendar Clicked", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(HomeActivity.this, "Calendar Clicked", Toast.LENGTH_SHORT).show();
                 Intent goToCalendar = new Intent(HomeActivity.this, CalendarActivity.class);
                 startActivity(goToCalendar);
                 return true;
             }else if (id == R.id.communityPostsMenuItem) {
-                Toast.makeText(HomeActivity.this, "Community Posts Clicked", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(HomeActivity.this, "Community Posts Clicked", Toast.LENGTH_SHORT).show();
                 Intent goToCommunitypost = new Intent(HomeActivity.this, CommunityPostActivity.class);
                 startActivity(goToCommunitypost);
                 return true;
             }else if (id == R.id.tipsMenuItem) {
-                Toast.makeText(HomeActivity.this, "Tips Clicked", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(HomeActivity.this, "Tips Clicked", Toast.LENGTH_SHORT).show();
                 Intent goToTips = new Intent(HomeActivity.this, TipsActivity.class);
                 startActivity(goToTips);
                 return true;
