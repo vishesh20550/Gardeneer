@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -58,6 +59,11 @@ public class AddPlantCustomAdapter extends RecyclerView.Adapter<AddPlantCustomAd
                 weeksTV.setText(plant.getSprout_to_harvest());
                 TextView monthsTV = activity.findViewById(R.id.monthsTV);
                 monthsTV.setText(plant.getSeason());
+                FrameLayout weeklyGrowthLinearLayout = activity.findViewById(R.id.weeklyGrowthLinearLayout);
+                weeklyGrowthLinearLayout.setOnClickListener(view ->{
+                    //TODO: Write code for Weekly Growth Analysis (Pass current plant using intent)
+                });
+
             }
         });
         if(position == selectedPlant) {
