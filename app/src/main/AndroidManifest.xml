@@ -19,6 +19,9 @@
         android:theme="@style/Theme.Gardneer"
         tools:targetApi="31">
         <activity
+            android:name=".WeeklyGrowthAcitivity"
+            android:exported="false" />
+        <activity
             android:name=".FertilizerCalculator"
             android:exported="false" />
         <activity

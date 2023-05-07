@@ -2,6 +2,7 @@ package com.example.gardneer;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,10 +61,16 @@ public class AddPlantCustomAdapter extends RecyclerView.Adapter<AddPlantCustomAd
                 TextView monthsTV = activity.findViewById(R.id.monthsTV);
                 monthsTV.setText(plant.getSeason());
                 FrameLayout weeklyGrowthLinearLayout = activity.findViewById(R.id.weeklyGrowthLinearLayout);
-                weeklyGrowthLinearLayout.setOnClickListener(view ->{
-                    //TODO: Write code for Weekly Growth Analysis (Pass current plant using intent)
+                weeklyGrowthLinearLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent weeklygrowthintent = new Intent(activity, WeeklyGrowthAcitivity.class );
+                        weeklygrowthintent.putExtra("selected", plant.getId());
+                        weeklygrowthintent.putExtra("name",plant.getName());
+                        weeklygrowthintent.putExtra("imageurl",plant.getImage());
+                        activity.startActivity(weeklygrowthintent);
+                    }
                 });
-
             }
         });
         if(position == selectedPlant) {
