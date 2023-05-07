@@ -72,6 +72,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     View progressOverlay;
     AlphaAnimation inAnimation;
     AlphaAnimation outAnimation;
+    String cityName;
     Toolbar toolbar;
     DrawerLayout drawerLayout;
     BottomNavigationView bottomNavigationView;
@@ -105,7 +106,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 //        btn_notification=findViewById(R.id.btn_notification);
         currentWeatherImageView=findViewById(R.id.currentWeatherImageView);
         fertilizerCalculator = findViewById(R.id.fertilizerCalculator);
-
+        cityName = getResources().getString(R.string.city);
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -283,16 +284,33 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onResume() {
         super.onResume();
-//       getWeatherAtCurrentLocation();
+       getWeatherAtCurrentLocation();
+    }
+
+    public void findWeather(){
+        String encodedCityName = null;
+        try {
+            encodedCityName = URLEncoder.encode(cityName, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            progressOverlay.setAnimation(outAnimation);
+            progressOverlay.setVisibility(View.GONE);
+            e.printStackTrace();
+        }
+        urls=new String[]{"https://api.openweathermap.org/data/2.5/weather?q="+encodedCityName+"&appid="+"bfd537f8e51d07594d49085bf19f6bfd"};
+        DownloadTask();
     }
 
     @SuppressLint("MissingPermission")
     public void getWeatherAtCurrentLocation(){
-        progressOverlay.setAnimation(inAnimation);
-        progressOverlay.setVisibility(View.VISIBLE);
-        SimpleDateFormat dateFormat = new SimpleDateFormat( "MMMM dd, yyyy", Locale.getDefault() );
-        Date date = new Date();
-        dateWeatherTV.setText(dateFormat.format(date));
+        if(!cityName.isEmpty()){
+            progressOverlay.setAnimation(inAnimation);
+            progressOverlay.setVisibility(View.VISIBLE);
+            SimpleDateFormat dateFormat = new SimpleDateFormat( "MMMM dd, yyyy", Locale.getDefault() );
+            Date date = new Date();
+            dateWeatherTV.setText(dateFormat.format(date));
+            findWeather();
+            return;
+        }
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         locationListener = new LocationListener() {
             @Override
@@ -311,17 +329,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 String cityName = addresses.get(0).getLocality();
                 String stateName = addresses.get(0).getAddressLine(1);
                 String countryName = addresses.get(0).getAddressLine(2);
-                String encodedCityName = null;
-                try {
-                    encodedCityName = URLEncoder.encode(cityName, "UTF-8");
-                } catch (UnsupportedEncodingException e) {
-                    progressOverlay.setAnimation(outAnimation);
-                    progressOverlay.setVisibility(View.GONE);
-                    e.printStackTrace();
-                }
                 Log.i("City",cityName);
-                urls=new String[]{"https://api.openweathermap.org/data/2.5/weather?q="+encodedCityName+"&appid="+"bfd537f8e51d07594d49085bf19f6bfd"};
-                DownloadTask();
             }
 
             @Override
