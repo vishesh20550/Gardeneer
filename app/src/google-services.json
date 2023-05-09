@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "965188371941",
+    "project_id": "gardeneer-1496e",
+    "storage_bucket": "gardeneer-1496e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:965188371941:android:bd837e33b670e385b39b0c",
+        "android_client_info": {
+          "package_name": "com.example.gardneer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "965188371941-1rrb8djtt527gr08u3gtm1re720qah10.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXu7Pwa_aVIZzLCRAQ_R5P6g-pbm8MwSg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "965188371941-1rrb8djtt527gr08u3gtm1re720qah10.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

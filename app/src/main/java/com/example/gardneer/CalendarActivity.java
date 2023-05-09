@@ -18,10 +18,14 @@ import android.os.Parcel;
 import android.preference.PreferenceManager;
 import android.provider.CalendarContract;
 import android.text.TextUtils;
+import android.util.Log;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CalendarView;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.material.datepicker.DayViewDecorator;
@@ -38,6 +42,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 
 public class CalendarActivity extends AppCompatActivity {
@@ -78,14 +83,49 @@ public class CalendarActivity extends AppCompatActivity {
 
     private void showAddEventDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        SharedPreferences savedPlants = getSharedPreferences("savedPlants", MODE_PRIVATE);
+        Map<String, ?> allPlantMap = savedPlants.getAll();
+        List<String> allPlants = new ArrayList<>();
+        for (Map.Entry<String, ?> entry : allPlantMap.entrySet()) {
+            JSONObject plantDetails = null;
+            try {
+                plantDetails = new JSONObject((String) entry.getValue());
+            }
+            catch (JSONException e) {
+                continue;
+            }
+            try {
+                String plantName = plantDetails.getString("name");
+                allPlants.add(plantName);
+            }
+            catch (JSONException e) {
+                continue;
+            }
+        }
+        String[] allPlantsArray = allPlants.toArray(new String[0]);
+
         builder.setTitle("Add Event");
         final EditText editText = new EditText(this);
         editText.setHint("Event Title");
-        builder.setView(editText);
+        // create a dropdownlist from the plants
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, allPlants);
+
+        Spinner spinner = new Spinner(this);
+        spinner.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        spinner.setAdapter(adapter);
+
+        LinearLayout layout = new LinearLayout(this);
+        layout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.addView(spinner);
+        layout.addView(editText);
+        builder.setView(layout);
         builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 String eventTitle = editText.getText().toString();
+                String plantName = spinner.getSelectedItem().toString();
+
                 ContentResolver cr = getContentResolver();
                 ContentValues values = new ContentValues();
                 values.put(CalendarContract.Events.TITLE, eventTitle);
@@ -93,7 +133,7 @@ public class CalendarActivity extends AppCompatActivity {
                 values.put(CalendarContract.Events.EVENT_TIMEZONE, "Asia/Kolkata");
                 Uri uri = cr.insert(CalendarContract.Events.CONTENT_URI, values);
                 DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-                addEventToSharedPreferences(eventTitle);
+                addEventToSharedPreferences(eventTitle, plantName);
                 eventAdapter.add(eventTitle);
                 eventAdapter.notifyDataSetChanged();
                 Toast.makeText(CalendarActivity.this, "Event " + eventTitle + " created for " + df.format(selectedDate.getTime()), Toast.LENGTH_SHORT).show();
@@ -117,11 +157,12 @@ public class CalendarActivity extends AppCompatActivity {
         sharedPreferences.edit().putString("eventsArray", eventsArray.toString()).apply();
     }
 
-    private void addEventToSharedPreferences(String eventTitle) {
+    private void addEventToSharedPreferences(String eventTitle, String plantName) {
         JSONObject eventObject = new JSONObject();
         try {
             eventObject.put("date", getSelectedDateAsString());
             eventObject.put("title", eventTitle);
+            eventObject.put("plantName", plantName);
         } catch (JSONException e) {
             e.printStackTrace();
             return;
@@ -144,7 +185,9 @@ public class CalendarActivity extends AppCompatActivity {
                 String date = eventObject.getString("date");
                 if (date.equals(selectedDateString)) {
                     String eventTitle = eventObject.getString("title");
-                    eventTitles.add(eventTitle);
+                    String plantName = eventObject.getString("plantName");
+                    String eventString = eventTitle + " (" + plantName + ")";
+                    eventTitles.add(eventString);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
